@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>DOMready</title>
+	</head>
+	<!--<script src="domready.js" type="text/javascript"></script>-->
+	<script>
+//			window.setTimeout(function(){
+//				document.getElementsByTagName("p")[0].style.color="red";
+//			},500)
+			var start=date.now();
+			
+			
+			window.onload=function(){
+			
+				
+				document.getElementsByTagName("p")[0].style.color="red";
+				var stop=date.now();
+				alert("花费的时间："+(stop-start));
+			}
+		
+			
+			
+			
+
+			
+	</script>
+	<body>
+		<p>文字变红</p>
+	</body>
+</html>

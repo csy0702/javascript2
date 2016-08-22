@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+		<style>
+			div{
+				width: 400px;
+				height: 200px;
+				background: antiquewhite;
+			}
+		</style>
+	<body>
+		<div id="mydiv"></div>
+		<script>
+			var mydiv=document.getElementById("mydiv");
+			//attr为字符串类型         因为当有css样式时   style取不到，所以只有通过currentStyle["width"]
+			//Stylewindow.getComputedStyle(mydiv,false)["width"]来取到;
+			function getStyle(obj,attr){
+				if(obj.currentStyle){
+					//说明是ie浏览器，这个currentStyle方法只兼容ie
+					return obj.currentStyle["width"];
+					
+				}else{
+					return window.getComputedStyle(mydiv,false)["width"];
+				}
+			}
+			console.log("width:"+getStyle(mydiv,"width"));
+		</script>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="domready.js"></script>
+	<body>
+		<div id="msg"></div>
+		<div>
+			<img src="http://bizhi.zhuoku.com/2010/10/29/kuanping/kuanping001.jpg" />
+			<img src="http://img.article.pchome.net/00/43/87/47/pic_lib/wm/kuanping005.jpg" />
+			
+			<img src="http://pic1.win4000.com/wallpaper/7/55f2a613a14e2.jpg" />
+			
+		</div>
+		<script>
+			var msg=document.getElementById("msg");
+			var time1=null;
+			var time2=null;
+			myReady(function(){
+				msg.innerHTML+="myReady已经加载<br/>";
+				time1=new Date().getTime();
+				msg.innerHTML+="时间戳："+time1+"<br/>";
+				
+			});
+			
+			window.onload=function(){
+				msg.innerHTML+="onload已经加载<br/>";
+				time2=new Date().getTime();
+				msg.innerHTML+="时间戳："+time2+"<br/>";
+				msg.innerHTML+="domready比onload快："+(time2-time1)+"ms<br/>";
+			}
+		</script>
+	</body>
+</html>

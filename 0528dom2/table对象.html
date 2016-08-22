@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var table=document.createElement("table");
+			table.border="1";
+			table.width="500";
+			table.cellPadding="0";
+			table.cellSpacing="0";
+			
+			//添加行
+			table.insertRow(0);
+			for(var i=0;i<4;i++){
+				table.rows[0].insertCell(i);
+				table.rows[0].cells[i].appendChild(document.createTextNode("今天天气很美"+i));
+			}
+			document.body.appendChild(table);
+		</script>
+	</body>
+</html>

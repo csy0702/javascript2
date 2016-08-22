@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		table{
+			
+		}
+	</style>
+	<body>
+		<table width='400px' border='1px' cellspacing='0' id="mytable" >
+			<tr>
+				<td>书名</td>
+				<td>价格</td>
+			</tr>
+			<tr>
+				<td>风景房</td>
+				<td>30元</td>
+			</tr>
+			<tr>
+				<td>六十个瞬间</td>
+				<td>30元</td>
+			</tr>
+		</table>
+		<input type="button" value="增加一行" onclick="zenJia()" id="zejia" />
+		<input type="button" value="删除第二行" onclick="shanChu()" id="shanchu" />
+		<input type="button" value="修改标题" onclick="change()" id="xiugai" />
+		
+		
+		<script type="text/javascript">
+				function zenJia(){
+					var table=document.getElementById("mytable");
+					var newRow=table.insertRow(table.rows.length);
+					var cell1=newRow.insertCell(0);
+					//cell1.innerHTML="一路向北";
+					cell1.appendChild(document.createTextNode("一路向北"));
+					var cell2=newRow.insertCell(1);
+					//cell2.innerHTML="30元";
+					cell2.appendChild(document.createTextNode("30"));
+	
+				}
+				function shanChu(){
+					document.getElementById("mytable").deleteRow(1);
+				}
+				function change(){
+					var row1=document.getElementById("mytable").rows[0];
+					row1.className="今天我很好";
+				}
+		</script>
+	</body>
+</html>

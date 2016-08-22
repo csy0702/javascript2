@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+		var arr=[["张三","19","男"],["李四","22","女"],["王五","23","男"],["赵六","20","男"]];
+		//方法一
+//			for(var i=0;i<arr.length;i++){
+				
+//				
+//					document.write("<table width='400px' border='1px' cellspacing='0' ");
+//					document.write("<tr><td>"+arr[i][0]+"</td><td>"+arr[i][1]+"</td><td>"+arr[i][2]+"</td></tr>");
+//					document.write("</table>");
+//				
+//			}
+		//方法二
+//		var str="<table width='400px' border='1px' cellspacing='0' ";
+//		for(var i=0;i<4;i++){
+//			str=str+"<tr><td>"+arr[i][0]+"</td><td>"+arr[i][1]+"</td><td>"+arr[i][2]+"</td></tr>"
+//		}
+//		str=str+"</table>";	
+//		document.write(str);
+
+		//方法三
+		var table=document.createElement("table");
+		table.border="1px";
+		table.width="400px";
+		table.cellPadding="0";
+		table.cellSpacing="0";
+		
+		var str="";
+		for(var i=0;i<arr.length;i++){
+			str+="<tr>";
+			for(var j=0;j<arr[i].length;j++){
+				str+="<td>"+arr[i][j]+"</td>";
+			}
+			str+="</tr>";
+		}
+		
+		table.innerHTML=str;
+		document.body.appendChild(table);
+			
+		</script>
+	</body>
+</html>
