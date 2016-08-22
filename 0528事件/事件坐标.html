@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	
+	<body>
+			<div >
+				<img src="fish.gif" id="img"  />
+			</div>
+			
+		<script>
+			
+			document.getElementById("img").onmousemove=function(event){
+			document.getElementById("img").style.cssText="position: absolute;top: "+(event.screenY-40)+"px;left:"+(event.screenX-10)+"px;";
+			}
+		</script>
+	</body>
+</html>

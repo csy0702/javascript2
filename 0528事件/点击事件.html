@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="button" value="点我" onclick="show()" />
+		<input type="button" value="双击点我" />
+		<script>
+			function show(){
+				alert("点了吧");
+			}
+			
+			var btn=document.getElementsByTagName("input")[1];
+			btn.addEventListener("dblclick",function(){
+				alert("双击了我");
+
+			})
+			
+			
+		</script>
+	</body>
+</html>

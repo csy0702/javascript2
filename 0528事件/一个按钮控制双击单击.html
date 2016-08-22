@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="button" value="点我" onclick="aa()" ondblclick="bb()" />
+		<script>
+			var isdb;
+			function aa(){
+				isdb=false;
+				window.setTimeout(function(){
+					if(isdb!=false){
+						return;
+					}
+					alert("单击");
+				},500);
+				
+			}
+			function bb(){
+				isdb=true;
+				alert("双击");
+			}
+		</script>
+	</body>
+</html>

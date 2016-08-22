@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		#mydiv{
+			display: none;
+		}
+		
+	</style>
+	<body>
+		<p id="myp">点我，弹出鼠标右键</p>
+		<div id="mydiv">
+			<ol>
+				<li><img src="fish.gif"/></li>
+				<li>今天天气真好</li>
+				
+			</ol>
+		</div>
+		<script>
+			var myp=document.getElementById("myp");
+			var mydiv=document.getElementById("mydiv");
+			myp.onmousedown=function(event){
+				//判断event存不存在，如果存在，就用这个event，如果不存在，说明是ie，用ie的方法来取
+				var event=event ? event : window.event;   //兼容ie  
+				//判断是不是右键，
+				if(event.button==2){
+					
+					document.oncontextmenu=function(aevent){
+						//阻止浏览器的默认行为
+						if(window.event){//判断是不是右键
+							aevent=window.event
+							aevent.returnValue=false;  //阻止事件的默认行为
+							aevent.preventDefault();
+					
+						}else{
+							aevent.preventDefault();//阻止现代浏览器事件的默认行为
+						};
+					}
+					mydiv.style.cssText="display: block;position: absolute;top: "+(event.clientY+10)+"px;left:"+event.clientX+"px;";
+				}
+				
+			}
+			myp.onmouseout=function(){
+				//让它延时1000ms再隐藏
+				setTimeout(function(){
+					mydiv.style.cssText="display: none;"
+				},1000);
+				
+			}
+			
+		</script>
+	</body>
+</html>

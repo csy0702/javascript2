@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--<input type="button" value="点我" onmousedown="show(event)" />-->
+		<p onmousedown="show(event)">点我</p>
+		<script>
+			function show(event){
+				var event=event  ?event:window. event;   
+				alert(event.button);
+			}
+		</script>
+	</body>
+</html>
