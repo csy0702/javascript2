@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<style>
+		.style1{
+			color: green;
+		}
+		.style2{
+			color: red;
+		}
+	</style>
+	<body>
+		打字练习：<h2 id="test"></h2>
+		<p>键入内容：
+			<input name="textfield" type="text" size="50" dir="inp" />
+			
+		</p>
+		<script>
+			
+			var str="welcome to study center";
+			window.onload=function(){
+				for(var i=0;i<str.length,i++){
+					htmlstr+="<span id='myspan"+i+"'>"+str.substring(i,i+1)+"</span>";
+				}//substring(i,i+1)  截取一个字符
+				document.getElementById("test").innerHTML=htmlstr;
+			}
+			
+			var j=0;
+			var inp=document.getElementById("inp");
+			//onkeydown显示的字母为大写
+			inp.onkeydown=function(event){
+				var e=event? event:window.event;
+				var keycode=e.keyCode;
+				//产生一个字符；     大写与小写之间差了32个长度；keycode+32  将大写转换为小写
+				//fromCharCode将Unicode编码转换为字符值    键值为97  传换位a
+				var realchar=String.fromCharCode(keycode+32);
+				//只有a-z   空格   删除才能进入
+				if((keycode>=65&&keycode<=90) ||  keycode==8  || keycode==32){
+					if(str.substring(j,j+1)==realchar){
+						document.getElementById("myspan"+j).className="style1";
+					}else if(keycode==8){
+						j--;
+						if(j<0){
+							j=0;
+						}
+						document.getElementById("myspan"+j).className="";
+						return;
+					}else{
+						document.getElementById("myspan"+j).className="style2";
+					}
+					j++;
+				}
+				
+			}
+			
+			
+		</script>
+	</body>
+</html>

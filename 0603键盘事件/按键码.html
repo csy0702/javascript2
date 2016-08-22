@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" value="keydown" id="inp1"/><br /><br /><br />
+		<input type="text" value="keypress" id="inp2" />
+		<script>
+			var inp1=document.getElementById("inp1");
+			var inp2=document.getElementById("inp2");
+			inp1.onkeydown=function(event){
+				var e=event? event:window.event;
+				var keycode=e.keyCode;
+				var txt=String.fromCharCode(keycode);
+				console.log("keydown-----"+txt);
+			}
+			inp2.onkeypress=function(event){
+				var e=event? event:window.event;
+				//兼容firfox
+				if(e.keyCode){
+				    var keycode=e.keyCode;
+					var txt=String.fromCharCode(keycode);
+				}else{
+					var keycode=e.which;//去键值
+					var txt=String.fromCharCode(keycode);
+				}
+				
+				console.log("keypress-----"+txt);
+			}
+		</script>
+	</body>
+</html>

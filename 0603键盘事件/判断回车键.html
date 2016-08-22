@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<form action="" method="get">
+			<p>用户名：<input name="uname" type="text" maxlength="6" size="16"/></p>
+			<p>密&nbsp;码：<input name="upassword" type="password" maxlength="6" size="16"/></p>
+			<input type="submit" value="注册" />
+		</form>
+		
+		<script>
+			document.onkeydown=function(event){
+				var e=event? event:window.event;
+				alert(e.keyCode);
+				if(e.keyCode==13){
+					document.getElementsByTagName("form")[0].submit();
+				}
+			}
+		</script>
+	</body>
+</html>
