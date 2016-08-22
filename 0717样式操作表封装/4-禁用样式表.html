@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.myclass2{
+			font-size: 18px;
+		}
+	</style>
+	<link rel="stylesheet" href="main.css" />
+	<body>
+		<p class="myclass1  myclass2">hello</p>
+		<script>
+			//只对link   style样式表起作用    对行内样式不起作用
+			document.styleSheets[0].disabled=true;
+			document.styleSheets[1].disabled=true;
+		</script>
+	</body>
+</html>

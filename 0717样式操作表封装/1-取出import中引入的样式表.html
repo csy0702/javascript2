@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		@import url("a.css");
+		@import url("b.css");
+	</style>
+	<style>
+		@import url("c.css");
+	</style>
+	<body>
+		<script>
+			
+			
+			var importrules;
+			if(document.styleSheets[0].cssRules){//w3c
+				importrules=document.styleSheets[0].cssRules[0].styleSheet.cssRules;
+				//页面中第一个样式表中的第一条规则中的样式表中的规则条数			
+			
+			}else{
+				importrules=document.styleSheets[0].imports[0].rules;
+			}
+			alert( importrules.length);
+
+			
+		</script>
+	</body>
+</html>

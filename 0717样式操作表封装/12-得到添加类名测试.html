@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="yctable.js"></script>
+	</head>
+	<body onload="init()">
+		<p id="ab" class="f e g">ppp</p>
+		<script>
+			function init(){
+				alert(yc.getClassNames("ab"));
+				yc.addClassName("ab","a");
+				alert(yc.getClassNames("ab"));
+				alert(yc.hasClassName("ab","a"));
+			}
+		</script>
+	</body>
+</html>

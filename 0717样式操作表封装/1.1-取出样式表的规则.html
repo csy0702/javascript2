@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		@import url("a.css");
+		@import url("b.css");
+	</style>
+	<style>
+		@import url("c.css");
+	</style>
+	<body>
+		<script>
+			
+		
+			var stylesheetcount=0;
+			stylesheetcount+=document.styleSheets.length;
+			if(document.styleSheets[0].rules){
+				//ie
+				for( var i=0;i<document.styleSheets.length;i++){
+					stylesheetcount+=document.styleSheets[i].imports.length;
+				}
+			}else{
+				for(  var i=0;i<document.styleSheets.length;i++){
+					var cssrules=document.styleSheets[i].cssRules;
+					for( var j=0;j<cssrules.length;j++){
+						var rule=cssrules[j];
+						if(rule.type==3){
+							stylesheetcount++;
+						}
+					}
+				}
+			}
+			
+			alert("样式表的数量"+stylesheetcount);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="yctable.js"></script>
+	</head>
+	<body onload="init()">
+		
+		<div id="a">hello
+			<div id="b">bye</div>
+		</div>
+		<p id="c">hello
+			<span id="d">bye</span>
+		</p>
+		<span id="e">bye2222</span>
+		<script>
+			function init(){
+				var newstyle={"color":"red","background-color":"blue"};
+				yc.setStylesByTagName("div",newstyle);
+				var newstyle={"color":"blue","backgroundColor":"gray"};
+				yc.setStylesByTagName("span",newstyle,"c");
+
+			}
+		</script>
+	</body>
+</html>

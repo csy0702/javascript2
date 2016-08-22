@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<p class="myclass1">abc</p>
+		<script>
+			function addSheet(  cssURL){
+				if( document.createStyleSheet){//ie
+					document.createStyleSheet(cssURL);
+				}else{//w3c
+					var ss=document.createElement("link");
+					ss.type="text/css";
+					ss.rel="stylesheet";
+					ss.href=cssURL;
+					document.getElementsByTagName("head")[0].appendChild(ss);
+				}
+			}
+			addSheet("main.css");
+		</script>
+	</body>
+</html>

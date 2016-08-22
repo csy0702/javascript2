@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.myclass2{
+			font-size: 18px;
+		}
+	</style>
+	<link rel="stylesheet" href="main.css" />
+	<body>
+		<p class="myclass1  myclass2">hello</p>
+		<script>
+			function removeSheet( index){
+				var sheet=document.styleSheets[index];
+				var container=sheet.owningElement  || sheet.ownerNode;
+				//	  style				ie					w3c
+				if(container ){
+					container.parentNode.removeChild(container);
+				}
+			}
+			
+			removeSheet(0);
+		</script>
+	</body>
+</html>
+

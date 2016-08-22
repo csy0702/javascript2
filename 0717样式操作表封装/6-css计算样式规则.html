@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<style>
+		.myclass{
+			color: red;
+			background-color: blue;
+		}
+		#mydiv{
+			color: blue;
+			background-color: red;
+		}
+	</style>
+	<body>
+		<div class="myclass" id="mydiv">hello</div>
+		<button onclick="alert(compute('mydiv','color'))" ></button>
+		<script>
+			function compute(  ele,attr){
+				var eleobj=document.getElementById(ele);
+				var computedStyle;
+				if(eleobj.currentStyle){
+					computedStyle=eleobj.currentStyle;
+				}else{
+					computedStyle=document.defaultView.getComputedStyle(  eleobj,null);
+				}
+				return computedStyle[attr];
+			}
+			
+		</script>
+	</body>
+</html>

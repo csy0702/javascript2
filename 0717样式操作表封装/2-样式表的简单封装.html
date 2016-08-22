@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<link rel="stylesheet" type="text/css" href="main.css" />
+	<style type="text/css">
+		.myclass2{
+			color: green;
+		}
+	</style>
+	<body onload="show()">
+		<script>
+		//document.styleSheets只能取得<link><style>所标识的样式表
+		//getSheet()可以取得所有样式表
+			function getSheets(){
+				var styleCollection=[];//样式表集合
+				var indexedStylesheets=0;
+				//先加<link><style>所标识的样式表
+				for( var i=0;i<document.styleSheets.length;i++){
+					//styleCollection[0]=document.styleSheets[0]
+					styleCollection[styleCollection.length]=document.styleSheets[i];
+					
+				}
+				//循环 styleCollection中的每个样式，取出import的部分，import的type=3
+				while(  indexedStylesheets<styleCollection.length){
+					for( var i=indexedStylesheets;i<styleCollection.length;i++){
+						indexedStylesheets+=1;
+						if( styleCollection[i].cssRules){
+							//w3c
+							for(var j=0;j<styleCollection[i].cssRules.length;j++){
+								if( styleCollection[i].cssRules[j].type==3){
+									styleCollection[styleCollection.length]=styleCollection[i].cssRules[j].styleSheet;
+								}
+							}
+						}else{
+							//ie
+							for(var j=0;j<styleCollection[i].imports.length;j++){
+								styleCollection[styleCollection.length]=styleCollection[i].imports[j];
+							}
+						}
+					}
+				}
+				return styleCollection;
+			}
+			/*
+			 searchString:要查找的选择器名称
+			 exact： true (精确查找)  /false(模糊查找)
+			 */
+			function searchRule( searchString, exact){
+				var stylesheetlist=getSheets();//获得所有的样式表
+				var rulelist=[];//匹配的规则
+				for( var i=0;i<stylesheetlist.length;i++){//循环样式表，取出每个样式表中的规则集合
+					//  rules: ie     cssRules:w3c
+					var ruleSet=stylesheetlist[i].rules ||stylesheetlist[i].cssRules;
+					for(var x=0;x<ruleSet.length;x++){
+						if( exact&&ruleSet[x].selectorText==searchString){
+							//如果是精确查找，则取出每个rules的selectorText选择器名称
+							rulelist.push( ruleSet[x]);
+						}else if(!exact&&( ruleSet[x].selectorText.indexOf(searchString)>-1)){
+							rulelist.push( ruleSet[x]);
+						}
+					}
+				}
+				return rulelist;
+			}
+			
+			alert( searchRule( "myclass",false));
+			
+			
+			//alert(getSheets());
+			function show(){
+				var stylesheetlist=getSheets();
+				var resultContext="";
+				for(var i=0;i<stylesheetlist.length;i++){
+					resultContext+="<p> stylesheet href地址:"+stylesheetlist[i].href+"</p>";
+				}
+				document.body.innerHTML=resultContext;
+			}
+		</script>
+	</body>
+</html>

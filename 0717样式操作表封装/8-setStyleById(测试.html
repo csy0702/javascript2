@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="yctable.js"></script>
+	<body onload="init()">
+		<div id="a">hello</div>
+		<div id="b">b</div>
+		<script>
+			function init(){
+				var newstyle={"color":"red","background-color":"blue"};
+				yc.setStyleById("a",newstyle);
+				var newstyle={"color":"blue","backgroundColor":"gray"};
+				yc.setStyleById("b",newstyle);
+
+			}
+		</script>
+	</body>
+</html>
