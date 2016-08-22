@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function YcTable(data){
+				this.data=data;
+			}
+			
+			YcTable.prototype={
+				showTable:function(){
+					var table=document.createElement("table");
+					table.border="1";
+					table.width="500";
+					table.cellPadding="0";
+					table.cellSpacing="0";
+					for(var j=0;j<this.data.length;j++){
+						table.insertRow(j);
+						table.rows[j].insertCell(0).appendChild(document.createTextNode(this.data[j].name));
+						table.rows[j].insertCell(1).appendChild(document.createTextNode(this.data[j].age));
+
+					}
+					document.body.appendChild(table);
+					return;
+				},
+				getTotal:function(){
+					return alert(this.data.length);
+					
+				},
+				getColumnNames:function(){
+//					for(j=0;j<this.data.length;j++){
+//						document.write(this.data[j].name+",");
+//					}
+//					return;
+					return document.write(Object.keys(this.data[0]));
+				},
+				getColumnCount:function(){
+					return Object.keys(this.data[0]).length;
+				},
+				getValue:function(){
+					
+				}
+			}
+			
+			var data=[{name:"csy",age:"20"},{name:"smith",age:"21"},{name:"fg",age:"23"}];
+			var ycTable=new YcTable(data);
+			ycTable.showTable();
+			ycTable.getTotal();
+			ycTable.getColumnNames();
+		</script>
+	</body>
+</html>

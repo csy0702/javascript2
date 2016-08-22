@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+	.red{
+		color: red;
+		
+	}
+	</style>
+	<body>
+		<script>
+			function TreeItem(text,link,icon){
+				this.text=text;
+				this.link=link;
+				this.icon=icon;
+				this.sonItems=[];
+				
+			}
+			
+			TreeItem.prototype={
+				attribute:{
+					className:'',//添加样式  类名
+					
+				},
+				addSonItem:function(sonItem){
+					this.sonItems.push(sonItem);
+				},
+				getSonItemCount:function(){
+					return this.sonItems.length;
+					
+				},
+				getAllSonItem:function(){
+					return this.sonItems;
+				},
+				showItem:function(parentNode){
+					var root;
+					if(this.sonItems.length<=0){
+						root=document.createElement("li");
+						if(this.links){
+							var a=document.createElement("a");
+							a.href=this.links;
+							var txt=document.createTextNode(  this.text);
+							a.appendChild(  txt);
+							root.appendChild(  a);
+						}else{
+							var txt=document.createTextNode(  this.text);
+							root.appendChild(txt);
+						}
+						parentNode.appendChild( root);
+						return;
+
+					}
+					
+					root=document.createElement("li");
+					var txt=document.createTextNode(  this.text);	
+					root.appendChild(txt);	
+					var ulnode=document.createElement("ul");
+					root.appendChild(ulnode);
+					for(var i=0;i<this.sonItems.length;i++){
+						var si=this.sonItems[i];
+						si.showItem(   ulnode);//对showItem()进行自调用    递归调用  循环出下面所有的子节点
+					}
+						
+					parentNode.appendChild(root);
+				
+				}
+				
+			}
+			
+			var root=new TreeItem('root','','');
+			root.attribute.className='red';
+			var t1=new TreeItem('t1','','');
+			var t2=new TreeItem('t2','','');
+			
+			root.addSonItem(t1);
+			root.addSonItem(t2);
+		//	alert(  root.getSonItemCount());//得到根节点之后直接子节点的数量
+			var allitems=root.getAllSonItem();
+			//for(var i=0;i<allitems.length;i++){
+				//alert( allitems[i].text);
+			//}
+			
+			root.showItem(document.body);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>绘图</title>
+
+
+
+</head>
+
+<body>
+
+<canvas id="myCanvas" height="1600px" width="1600px" ></canvas>
+
+
+
+<script type="text/javascript">
+	//定义一个点的对象  ( x, y)
+	function Point(  x, y){
+			this.x=x;
+			this.y=y;
+	}
+	
+	//定义一个线的对象, ( p1, p2,  长度: 勾股定理 )
+	function Line(  p1, p2 ){
+		this.p1=p1;
+		this.p2=p2;
+		//利用勾股定理求线长
+		this.length= Math.sqrt(    Math.pow(p1.x-p2.x,2 ) + Math.pow( p1.y-p2.y, 2) ); 
+	}
+	
+	//定义一个形状对象   ( 由n个点和n条线组成  )
+	function Shape(){
+		this.points=[];
+		this.lines=[];	
+		this.init();
+	}
+	// 初始化, 绘制, 获取颜色, 获取所有的线，获取所有的点， 周长，面积. 
+	Shape.prototype={
+		init:  function(){
+				if(  (typeof this.context)=='undefined'  ){
+					var canvas=document.getElementById('myCanvas');
+					this.context=canvas.getContext('2d');
+				}
+			}  ,
+		draw:  function(){
+				//利用context来完成绘制,   看线和点的位置. ,取出颜色.
+				var ctx=this.context;
+				ctx.strokeStyle=this.getColor();
+				ctx.beginPath();
+				ctx.moveTo( this.points[0].x, this.points[0].y);
+				for( var i=1;i<this.points.length;i++){
+					ctx.lineTo( this.points[i].x, this.points[i].y);	
+				}	
+				ctx.closePath();
+				ctx.stroke();
+			},
+		drawC:function(){
+			var ctx=this.context;
+				ctx.strokeStyle=this.getColor();
+				ctx.beginPath();
+				ctx.arc( this.points[0].x, this.points[0].y,100, Math.PI*2, false);
+				
+				ctx.closePath();
+				ctx.stroke();
+		},
+		getColor: function(){
+				//输出颜色  (颜色值随机生成.    Math.random()*255
+				var cs=[];
+				for( var i=0;i<3;i++){
+					cs[i]= Math.round(  Math.random()*255  );       //   0-1	   [255,0,0]
+				}
+				return 'rgb('+  cs.join(',')   +')';      //  cs.join(',')   ->     rgb(255,0,0)
+			},
+		getLines: function(){
+				//判断lines是否为空，如果为空，则要判断points是否为空
+				if( this.lines.length>0){
+					return this.lines;	
+				}	
+				//如果points不为空，则要根据点来生成线.
+				var lines=[];
+				if(   this.points.length<=0 ){
+					return lines;	
+				}
+				for( var i=0;i<this.points.length;i++){
+					lines[i]=new Line(   this.points[i],   (this.points[i+1])?this.points[i+1]:this.points[0] );	
+				}
+				this.lines=lines;
+				return lines;
+			},
+		getPoints: function(){
+				return this.points;
+			},
+		getParimeter: function(){
+			    //循环  this.lines数组,取出每一条 line, 再取出它的  length值相加,
+				var lines=this.getLines();
+				var perim=0;
+				for( var i=0;i<lines.length;i++){
+					perim+=lines[i].length;	
+					//alert("线"+i+"长度："+lines[i].length)	
+					
+				}	
+				return perim;
+			}
+			
+	}
+	
+	//三角形
+	function Triangle(  p1, p2,p3){
+		this.points=[p1,p2,p3];
+		
+	}
+	Triangle.prototype=new Shape();
+	
+	Triangle.prototype.getArea=function(){
+		var a=Math.sqrt(Math.pow(p1.x-p2.x,2)+Math.pow(p1.y-p2.y,2));
+				var b=Math.sqrt(Math.pow(p2.x-p3.x,2)+Math.pow(p2.y-p3.y,2));
+				var c=Math.sqrt(Math.pow(p3.x-p1.x,2)+Math.pow(p3.y-p1.y,2));
+				var p=Math.round((a+b+c)/2);
+				var area=Math.round(Math.sqrt(p*(p-a)*(p-b)*(p-c)));
+				
+				return area;
+	}
+	
+	//长方形
+	function Rectangle(a,l,w){
+		var p2=new Point(  a.x+l,  a.y);
+		var p3=new Point( a.x+l,a.y+w);
+		var p4=new Point(  a.x,  a.y+w);
+		this.points=[a,p2,p3,p4];
+		this.getArea=function(){
+			return l*w;
+		}
+	}
+	//继承shape的功能
+	(function(){
+		var s=new Shape();
+		Triangle.prototype=s;
+		Rectangle.prototype=s;
+		//Squarel1.prototype=s;
+		Squarel2.prototype=s;
+		
+		
+	})();
+
+	//正方形解决方案一
+//	function Squarel1(a,l,l){
+//		var p2=new Point(  a.x+l,  a.y);
+//		var p3=new Point( a.x+l,a.y+l);
+//		var p4=new Point(  a.x,  a.y+l);
+//		this.points=[a,p2,p3,p4];
+//		this.getArea=function(){
+//			return l*l;
+//		}
+//	}
+	//正方形解决方案二
+	
+	function Squarel2(a,l){
+		Rectangle.call(this,a,l,l);
+	}
+	
+
+
+	
+	
+	//三角形测试
+	var p1=new Point(100,100);
+	var p2=new Point(200,50);
+	var p3=new Point(300,100);
+	
+	var t1=new Triangle(  p1, p2,p3);
+	t1.draw();
+	
+	//console.log("面积:"+ t1.getArea()+"-----"+"周长:"+ t1.getParimeter()+"-----"+"颜色:"+ t1.getColor()+"-----"+"所有的点："+ t1.getPoints()+"-----"+ "所有的线:"+ t1.getLines());
+
+	//长方形测试
+	
+	var t2=new Rectangle(  p1,200,300);
+	t2.draw();
+	console.log("面积:"+ t2.getArea()+"-----"+"周长:"+ t2.getParimeter()+"-----"+"颜色:"+ t2.getColor()+"-----"+"所有的点："+ t2.getPoints()+"-----"+ "所有的线:"+ t2.getLines());
+	
+	//正方形测试
+	var t2=new Squarel2(  p1,200);
+	t2.draw();
+	
+	function circle(p1){
+		this.points=[p1];
+	}
+	circle.prototype=new Shape();
+	var p1=new Point(200,200);
+	var t2=new circle(  p1);
+	t2.drawC();
+</script>
+
+</body>
+</html>

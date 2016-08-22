@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function Person(name,age){
+				this.name=name;
+				this.age=age;
+			}
+			Person.prototype={
+				showInfo:function(){
+					document.write("姓名："+this.name+"----年龄"+this.age);
+					return;
+				}
+				
+			}
+			Emp.prototype=new Person();
+			Emp.prototype.constructor=Emp;
+			
+			function Emp(name,age,salary){
+				Person.call(this,name,age);
+				this.salary=salary;
+				
+			}
+			Emp.prototype.pay=function(){
+				
+					document.write("姓名："+this.name+"----年龄"+this.age+"薪水："+this.salary);
+					return;				
+				
+			}
+
+			
+			var p1=new Emp('jonh',21,12000);
+			p1.showInfo();
+			p1.pay();
+		</script>
+	</body>
+</html>

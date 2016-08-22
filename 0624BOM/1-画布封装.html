@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	
+	<body>
+		<canvas id="mycanvas" width="400px" height="400px"></canvas>
+		<script type="text/javascript">
+		//定义一个点的对象(x,y)
+		function Point(x,y){
+			this.x=x;
+			this.y=y;
+		}
+		
+		//定义一个线的对象(p1,p2,长度：勾股定理)
+		function Line(p1,p2){
+			this.p1=p1;
+			this.p2=p2;
+			//利用勾股定理求线长
+			this.length=Math.sqrt(     Math.pow(p1.x-p2.x,2)-Math.pow(p1.y-p2.y,2)   );
+		}
+		//定义一个形状对象(有n个点和n条线组成)
+		
+		function Shape(){
+			this.points=[];
+			this.lines=[];
+			this.init();
+		}
+		//初始化  绘制  获取颜色   获取所有的线  所有的点
+		
+		Shape.prototype={
+			
+			//初始化
+			init:function(){
+				if(typeof this.context=='undefined'){
+					var canvas=document.getElementById("mycanvas");
+					this.context=canvas.getContext("2d");
+				}
+				
+			},
+			draw:function(){
+				//利用context来完成绘制，看点和线的位置，取出颜色
+				var ctx=this.context;
+				ctx.strokeStyle=this.getColor();
+			
+				ctx.beginPath();
+				ctx.moveTo(this.points[0].x,this.points[0].y);
+				for( var i=1;i<this.points.length;i++){
+					ctx.lineTo(  this.points[i].x,this.points[i].y);
+				}
+				ctx.closePath();
+				ctx.stroke();
+			},
+			getColor:function(){
+				var cs=[];
+				for(var i=0;i<3;i++){
+					cs[i]=Math.round( Math.random()*255 );
+				}
+				return 'rgb('+cs.join(",")+')';
+				
+			},
+			getLines:function(){
+				//判断lines是否为空，如果为空，则要判断points是否为空
+				if(this.lines.length>0){
+					
+					return this.lines;
+				}
+				var lines=[];
+				 //如果points不为空，则要根据点来生成线.
+				if( this.points.length<=0){
+					return lines;
+				}
+				
+				for(var i=0; i<this.points.length;i++){
+					lines[i]=new Line(  this.points[i],(this.points[i+1])? this.points[i+1]:this.points[0]);
+				}
+				this.lines=lines;
+				
+				return lines;
+			},
+			getPoints:function(){
+				return this.points;
+			},
+			getParimeter:function(){
+				//循环  this.lines数组，取出每一条line  ，再取出它的length值相加
+				var lines=this.getLines();
+				var perim=0;
+				for( var i=0;i<lines.length;i++){
+					perim+=lines[i].length;
+				}
+				return perim;
+			},
+			
+			
+		}
+		
+		
+	</script>
+	</body>
+</html>
