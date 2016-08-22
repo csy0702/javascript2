@@ -1,0 +1,41 @@
+--1.查询两表的数据--
+select * from stuInfo;
+select * from stuMarks;
+
+--2.查询男学员名单-- 
+select * from stuInfo where stuSex='男';
+
+--3.查询笔试成绩优秀的学员情况（成绩在75～100之间)-- 
+select * from stuInfo,stuMarks where writtenExam>75 and writtenExam<100 and stuInfo.stuNo=stuMarks.stuNo;
+select * from stuInfo,stuMarks where writtenExam between 75 and 100 and stuInfo.stuNo=stuMarks.stuNo;
+
+--4.查询参加本次考试的学员成绩，包括学员姓名，笔试成绩，机试成绩-- 
+select stuName,writtenExam,labExam from stuInfo,stuMarks where stuInfo.stuNo=stuMarks.stuNo;
+
+--5.统计笔试考试平均分和机试考试平均分-- 
+select avg(writtenExam) as '笔试考试平均成绩',avg(labExam) as '机试考试平均成绩' from stuMarks;
+
+--6.统计参加本次考试的学员人数
+select count(stuNo) as '考试人数' from stuMarks;
+
+--7.查询没有通过考试的人数（笔试或机试小于60分）-- 
+select count(stuNo) as '未通过的人数' from stuMarks where writtenExam<60 or labExam<60;
+
+--8.查询学员成绩，显示学号，笔试成绩，机试成绩，平均分-- 
+select stuNo as '学号',writtenExam as '笔试考试成绩',labExam as '机试考试成绩',(writtenExam+labExam)/2.0 as '平均分' from stuMarks;
+
+--9.排名次（按平均分从高到低排序），显示学号、平均分--  
+select stuNo as '学号',(writtenExam+labExam)/2.0 as '平均分' from stuMarks order by '平均分' desc;
+
+--10.排名次(按平均分从高到低排序),显示姓名,笔试成绩,机试成绩,平均分-
+select stuName as '学生姓名',writtenExam as '笔试考试成绩',labExam as '机试考试成绩',(writtenExam+labExam)/2.0 as '平均分' from stuInfo,stuMarks where stuInfo.stuNo=stuMarks.stuNo order by '平均分' desc;
+
+--11.根据平均分,显示前两名信息,包括姓名、笔试成绩、机试成绩、平均分-
+select stuName as '学生姓名',writtenExam as '笔试考试成绩',labExam as '机试考试成绩',(writtenExam+labExam)/2.0 as '平均分' from stuInfo,stuMarks where stuInfo.stuNo=stuMarks.stuNo order by '平均分' desc limit 2;
+
+--12.都提5分--
+update stuMarks set writtenExam=writtenExam+5,labExam=labExam+5;
+
+--13.100分封顶（加分后超过100分的，按100分计算）--
+update stuMarks set writtenExam=100 where writtenExam>100;
+
