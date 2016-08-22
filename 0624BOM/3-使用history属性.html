@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<a href="history测试/a.html">a.html</a>
+		<a href="history测试/b.html">b.html</a>
+		
+		<input type="text" name="num" id="num" />
+		<div id="demo1" onclick="javascript:history.forward()">前进</div>
+		<div id="demo1" onclick="javascript:history.back()">后退</div>
+		<div id="demo1" onclick="javascript:gowhere()">go</div><!--常用于书签跳到哪一页-->
+		<script type="text/javascript">
+			function gowhere(){
+				var num=document.getElementById("num").value;
+				history.go(  num);
+			}
+		</script>
+	</body>
+</html>

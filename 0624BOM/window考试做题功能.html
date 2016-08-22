@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div>
+			您还有<span id="eclipsetime">20</span>秒
+			<div id="questions">
+				
+			</div>
+		</div>
+		
+		<script>
+			var questions=[["第一题","中国的首都是？","北京","上海","A"],["第二题","什么时候考试?","后天","大后天","A"],["第三题","今天开心吗?","开心","不开心","A"]];
+			
+			function showQuestions(questions){
+				var ques=document.getElementById("questions");
+				for(var i=0;i<questions.length;i++){
+					
+						var order1=document.createElement("span");
+						order1.id="q"+i;
+						order1.textContent=questions[i][0];
+						ques.appendChild(order1);
+						ques.appendChild(document.createElement("br"));
+						
+						var order2=document.createElement("span");
+						order2.id="quest"+i;
+						order2.textContent=questions[i][1];
+						ques.appendChild(order2);
+						ques.appendChild(document.createElement("br"));
+						
+						var choose=[" A: ","B:"];//定义选项A,B,C...
+						for(var j=2;j<questions[i].length-1;j++){
+							var order3=document.createElement("span");
+							order3.id="A"+i;
+							order3.textContent=choose[j-2]+"    "+questions[i][j];
+							ques.appendChild(order3);
+							
+							var order4=document.createElement("input");
+							order4.type="radio";
+							order4.name="answer"+i;
+							order4.value=j-1;
+							order4.textContent=questions[i][j];
+							order3.appendChild(order4);
+							ques.appendChild(document.createElement("br"));
+						}
+
+						ques.appendChild(document.createElement("br"));
+				}
+				
+				var btn=document.createElement("input");
+				btn.type="button";
+				btn.value="提交试卷";
+				btn.onclick=Submit;
+				ques.appendChild(btn);
+				
+			}
+			
+			var eclipsetime=document.getElementById("eclipsetime");
+			var seconds = eclipsetime.innerHTML;
+			var speed = 1000;//需要延迟的毫秒数；一秒
+			timeId = setTimeout("countDown(seconds--,speed)",speed);
+			//每延迟1000毫秒后，再次调用这个要执行的函数
+			function countDown(seconds,speed){
+                var txt =((seconds < 10) ? "0" + seconds : seconds) ;
+                eclipsetime.innerHTML = txt;
+              	var timeId = setTimeout("countDown(seconds--,speed)",speed);
+                if(seconds == 0){
+                        clearTimeout(timeId);//终止这个定时消息
+                       // window.open("son.html","new Window","width=500,height=300")
+                        Submit(timeId);
+                }
+                seconds=timeId;
+			}
+			//setTimeout() 只执行 code 一次。如果要多次调用，请使用 setInterval() 或者让 code 自身再次调用 setTimeout()	
+				
+			function Submit(){
+				clearTimeout(timeId);//关闭计时器
+				
+				var allinput=document.getElementsByTagName("input");
+				for(var i=0;i<allinput.length;i++){
+					allinput[i].disabled=true;
+				}
+				var ans=[];
+				for(var i=0;i<questions.length;i++){
+					var num="answer"+i;
+					var choose=document.getElementsByName(num);
+					//alert(choose);
+				}
+				
+			}
+			Submit();
+			countDown(seconds,speed);
+			window.onload=function(){
+				showQuestions(questions);
+				//倒计时
+				
+
+				//时间完了，要以mode窗口的形式显示当前的用户得分，再关闭当前的窗口
+			}
+			
+			
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div>
+			
+			<div id="questions">
+				
+			</div>
+		</div>
+		<script> 
+			function ShowQuestions(questions){
+				this.que=questions;
+			}
+			var timer;
+			showQuestions.prototype={
+				getTotol:function(){
+					return this.que.length; 
+				},
+				showque:function(){
+					var ques=document.getElementById("questions");
+					var timebox=document.createElement("div");
+					timebox.innerHTML="剩余时间(单位 s):";
+					var time=document.createElement("span");
+					timebox.appendChild(time);
+					var settime=new Date().getTime()+20000;
+					timer=setInterval(function(){
+						var innertime=parseInt(settime-new Date().getTime()/1000)
+						if(innertime==0){
+							clearInterval(timer);
+							submit(  timer);
+						}
+						time.innerHTML=innertime;
+					},50);
+					document.body.insertBefore(timebox,ques);
+					
+					//插入所有的题目
+					for(var i=0;i<this.getTotol();i++){
+						var num=document.createElement("span");
+						num.id="q"+i;
+						num.innerHTML=this.que[i][0]+"、";
+						ques.appendChild(num);
+						var question=document.createElement("span");
+						question.innerHTML=this.que[i][1];
+						ques.appendChild(question);
+						var options=document.createElement("p");
+						for(var j=0;j<4;j++){
+							var inp=document.createElement("input");
+							inp.type="radio";
+							inp.name="ans"+i;
+							inp.value=j+1;
+							var ans=document.createElement("span");
+							ans.innerHTML="&#"+(65+j)+";、"+this.que[i][2+j];
+							options.appendChild(inp);
+							options.appendChild(ans);
+						}
+						
+						ques.appendChild(options);
+						ques.appendChild(document.createElement("hr"));
+						
+					}
+					
+					var btn=document.createElement("input");
+					btn.type="button";
+					btn.value="提交试卷";
+					btn.onclick=submit;
+					ques.appendChild(btn);
+				}
+				
+			}
+			
+			function submit(){
+				clearInterval(timer);//关闭计时器
+				
+				var allinput=document.getElementsByTagName("input");
+				for(var i=0;i<allinput.length;i++){
+					allinput[i].disabled=true;
+				}
+				var ans=[];
+				for(var i=0;i<allque.que.length;i++){
+					var num="ans"+i;
+					var answer=document.getElementsByName(num);
+					var flag=true;
+					for(var j=0;j<answer.length;j++){
+						if(answer[j].checked){
+							ans.push(  answer[j].value);
+							flag=false;
+						}
+						
+						if(flag){
+							ans.push("0");
+						}
+					}
+					
+					
+				}
+				var score=0;
+					for(var i=0;i<allque.que.length;i++){
+						if(ans[i]==allque.que.length){
+							score+=10;
+							
+						}
+					}
+					
+					var newpage="son.html#"+(allque.que.length*10)+"_"+score;
+					window.open(newpage,"new window","windth=300,heigth=300");
+					close();
+				
+			}
+			
+			var que=[
+				[1,"中国的首都","北京","长沙","上海","重庆","1"],
+				[2,"中国的首都","北京","长沙","上海","重庆","2"]
+				[3,"中国的首都","北京","长沙","上海","重庆","3"]
+				[4,"中国的首都","北京","长沙","上海","重庆","4"]
+			];
+			var allque=new ShowQuestions(que);
+			allque.showque();
+		</script>
+	</body>
+</html>

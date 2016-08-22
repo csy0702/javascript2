@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<input id="demo1" type="button" value="显示屏幕信息" />
+		<script type="text/javascript">
+		//navigator  通常不太可信
+			document.getElementById("demo1").onclick=function(){
+				
+				alert(
+					"屏幕信息：\n"+
+					"分辨率:"+screen.width+"---"+screen.height+"\n"+
+					"可用区域："+screen.availWidth+"---"+screen.availHeight+"\n"
+					
+					
+				);
+			}
+		</script>
+	</body>
+</html>

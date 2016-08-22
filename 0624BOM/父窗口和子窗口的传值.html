@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	
+	<body>
+		<div>
+			姓名: <input type="text"  /><br /><br />
+			地址: <input type="text" id="demo1"  /><input type="button" id="choose" value="选择" onclick="choose()" />
+			
+		</div>
+		<script>
+//			用open来操作新窗口，打开子页面还可以来操作父页面；
+//			用mode来操作窗口，打开子页面是不可以再操作父页面的，必须要把子页面操作完才可以；
+			function choose(){
+				window.open("choose.html","new Window","width=600,height=400");
+
+			}
+			
+//			function newopen(){
+//				var ret=window.showModalDialog("choose.html",window,"dialogWidth=300,dialogHeight=300,location=0,status=0,resizable=0");
+//				if(ret){
+//					document.getElementById("demo1").value=ret;
+//				}
+//			}
+		</script>
+		
+		
+
+	</body>
+</html>

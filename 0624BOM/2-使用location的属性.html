@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="demo1">点击这里获取URL信息</div>
+		<div id="demo2">location.href方式跳转</div>
+		<div id="demo3">location.assign方式跳转</div>
+		<div id="demo4">location.replace方式跳转</div>
+		<div id="demo5">location.reload方式跳转</div>
+		
+		<script type="text/javascript">
+			
+			document.getElementById("demo1").onclick=function(){
+				alert(
+					"当前的URL信息：\n"+
+					"URL:"+location.href+"\n"+
+					"域名："+location.host+"\n"+
+					"主域名："+location.hostname+"\n"+
+					"路径："+location.pathname+"\n"+
+					"协议:"+location.protocol+"\n"+
+					"参数："+location.search+"\n"+
+					"hash"+location.hash
+				);
+			}
+			document.getElementById("demo2").onclick=function(){
+				location.href("http://www.baidu.com");
+			}
+			document.getElementById("demo3").onclick=function(){
+				location.assign("http://www.baidu.com");
+			}
+			document.getElementById("demo4").onclick=function(){
+				location.replace("http://www.baidu.com");
+			}
+			document.getElementById("demo5").onclick=function(){
+				location.reload("http://www.baidu.com");
+			}
+		</script>
+	</body>
+</html>

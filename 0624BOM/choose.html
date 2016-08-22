@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		省份: <input type="text"  id="province" value=""/><br /><br />
+		市: <input type="text" id="city" value="" /><br/><br />
+		
+		<input type="button" id="certain" value="确定" onclick="certain()" />
+		<input type="button" id="cancel" value="取消" onclick="cancel()" />
+		<script>
+		//利用open来做子页面
+			function certain(){
+				var choose=document.getElementById("province").value;
+				var city=document.getElementById("city").value;
+				var arr=[choose,city];
+				var a=arr.join("");
+				//alert(a);
+				window.opener.document.getElementById('demo1').value =a; //父窗口得到子窗口的值
+				window.close();
+			}
+			function cancel(){
+				window.opener.document.getElementById('demo1').value ="";
+				window.close();
+			}
+		//利用mode窗口来做页面
+//		var choose=document.getElementById("province");
+//		var city=document.getElementById("city");
+//		
+//		function certain(){
+//			window.returnValue=choose.value+city.value;
+//			close();
+//		}
+//		function cancel(){
+//			window.returnValue='';
+//			close();
+//		}
+		</script>	
+	</body>
+</html>
