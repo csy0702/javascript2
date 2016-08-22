@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<textarea id="result"></textarea>
+		<!--<p id="result"></p>  下面用innerHTML-->
+		<script>
+			function parseXML(str){
+				var xmlDoc;
+				try{
+					xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+					xmlDoc.async=false;//false为同步  (就是页面同时加载，从上解析到下) true  为异步
+					xmlDoc.loadXML(str);//与加载xml字符串的区别:
+				}catch(e){
+					try{
+						var parser=new DOMParser();
+						xmlDoc=parser.parseFromString(str,"text/xml");
+					}catch(x){
+						//alert(x.message);
+						return;
+					}
+				}
+				return xmlDoc;
+			}
+			//序列化就是将字符串变成对象，反序列化就是将对象转化成字符串
+			var xmlStr="<customer><name>张三</name><phone>12330</phone></customer>";
+			//将字符串xmlStr变成XML document对象
+			var xmlDOM=parseXML(xmlStr);  //xmlDOM->customer节点
+			//将XML  docuemnt 对象转变为string字符串
+			
+			//只有文本框复选框  表单元素才能用value
+			//只有段落标签才用innerHTML
+			if(xmlDOM.xml){
+				document.getElementById("result").value=xmlDOM.xml;//xml文件内容
+			}else{
+				var serializer=new XMLSerializer();
+				document.getElementById("result").value=serializer.serializeToString(xmlDOM,"text/xml");
+			}
+			
+		</script>
+	</body>
+</html>

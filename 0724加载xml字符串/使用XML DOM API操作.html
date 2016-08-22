@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<textarea id="result"></textarea>
+		<script>
+			function parseXML(str){
+				var xmlDoc;
+				try{
+					xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+					xmlDoc.async=false;//false为同步  (就是页面同时加载，从上解析到下) true  为异步
+					xmlDoc.loadXML(str);//与加载xml字符串的区别:
+				}catch(e){
+					try{
+						var parser=new DOMParser();
+						xmlDoc=parser.parseFromString(str,"text/xml");
+					}catch(x){
+						//alert(x.message);
+						return;
+					}
+				}
+				return xmlDoc;
+			}
+			//序列化就是将字符串变成对象，反序列化就是将对象转化成字符串
+			var xmlStr="<customer><customer id='1'><name>张三</name><phone>12330</phone></customer><customer i='2'><name>张三</name><phone>12330</phone></customer></customer>";
+			//将字符串xmlStr变成XML document对象
+			var xmlDOM=parseXML(xmlStr);  //xmlDOM->customer节点
+			
+			//在xml dom中不能使用getElementById方法，所以这里自己实现一个相似功能的函数
+			function getElementByIdXML(rootnode,id){
+				//先获取根节点下面的所有元素
+				nodeTags=rootnode.getElementsByTagName('*');
+				for(var i=0;i<nodeTags.length;i++){
+					if( nodeTags[i].hasAttribute('id') ){//判断元素中时候有这个id属性
+						if( (nodeTags[i].getAttribute('id')==id)){
+							return nodeTags[i];
+						}
+					}
+				}
+			}
+			var customerNode=getElementByIdXML(xmlDOM,"2");
+			//customerNode有可能还没有查到，值为undefined
+			if( customerNode){
+				//将查找到的xml显示出来
+				if(xmlDOM.xml){
+					document.getElementById("result").value=customerNode.xml;//xml文件内容
+				}else{
+					var serializer=new XMLSerializer();
+					document.getElementById("result").value=serializer.serializeToString(customerNode);
+				}
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/css" href="a.css">
+<student>
+	<student id="1">
+		<name>csy</name>
+		<sex>女</sex>
+		<age>20</age>
+	</student>
+	<student id="2">
+		<name>fh</name>
+		<sex>男</sex>
+		<age>20</age>
+	</student>
+</student>

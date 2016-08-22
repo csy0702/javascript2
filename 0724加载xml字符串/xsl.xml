@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:output method='html' version='1.0' encoding='UTF-8' indent='yes'/>
+	<xsl:template match="/">
+		<h2>客户列表</h2>
+		<table border="1">
+			<tr>
+				<th>客户名</th>
+				<th>年龄</th>
+				<th>电话号码</th>
+				<th>邮箱</th>
+				<th>兴趣</th>
+			</tr>
+			<xsl:for-each select="customers/customer">
+				<tr>
+					<td><xsl:value-of select="name"/></td>
+					<td><xsl:value-of select="age"/></td>
+					<td><xsl:value-of select="phone"/></td>
+					<td><xsl:value-of select="email"/></td>
+					<td><xsl:value-of select="hobby/play"/>
+						
+					</td>
+				</tr>
+			</xsl:for-each>
+			
+		</table>
+	</xsl:template>
+</xsl:stylesheet>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<p id="result"></p>
+		<script>
+
+//			var XHR=function(){
+//				if(typeof XMLHttpRequest=="undefined"){
+//					var xhrNames=["MSXML2.XMLHTTP.6.0","MSXML2.XMLHTTP.3.0","MSXML2.XMLHTTP","Microsoft.XMLHTTP"];
+//					for(var i=0;i<xhrNames.length;i++){
+//						try{
+//							var XHR=new ActiveXObject(xhrNames[i]);
+//							break;
+//						}catch(e){}
+//					}
+//					if(typeof XHR!=undefined){
+//						return XHR;
+//					}else{
+//						new Error("Ajax not supported!");
+//					}
+//				}else{
+//					return new XMLHttpRequest();
+//				}
+//			}
+			function loadXML(file){
+				var xmlDoc;
+				try{//ie
+					xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+					xmlDoc.async=false;//false为同步  (就是页面同时加载，从上解析到下) true  为异步
+					xmlDoc.load(file);//记载文件用load()    加载页面字符串用loadXML()
+				}catch(e){
+					try{//火狐，Mozilla,opera,etc,
+						xmlDoc=document.implementation.createDocument("","",null);
+						xmlDoc.async=false;
+						xmlDoc.load(file);//加载xml文件，形成文档树
+					}catch(e){
+						try{//谷歌
+							var xmlhttp=new window.XMLHttpRequest();//创建一个请求对象
+							xmlhttp.open("GET",file,false);//设置请求的参数 GET请求类型  file：要请求的文件名  false：同步
+							xmlhttp.send(null);
+							xmlDoc=xmlhttp.responseXML.documentElement;//得到服务器的结果  responseXML documentElement  得到根节点
+						}catch(e){
+							alert("您的浏览器不能正常加载文件，请切换到兼容模式，或者更换浏览器");
+						}
+					}
+				}
+				return xmlDoc;
+			}
+			
+			var xmlDOM=loadXML("data.xml");
+			var xslDOM=loadXML("xsl.xml");
+			//将两个被加载的文档进行合并操作
+			if('\v'=='v'){//ie
+				var resultDocument=xmlDOM.transformNode(xslDOM);
+				document.getElementById("result").innerHTML=resultDocument;
+			}else if( document.implementation&&document.implementation.createDocument){//w3c
+				var xsltProcessor=new XSLTProcessor();//xslt处理器
+				xsltProcessor.importStylesheet(xslDOM);//引入样式表文件
+				var resultDocment=xsltProcessor.transformToFragment(xmlDOM,document);//将样式表和数据文件合并，生成一个新的document字符串
+				document.getElementById("result").appendChild(resultDocment);
+			}
+		</script>
+		
+			
+	</body>
+</html>

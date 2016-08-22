@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<customers>
+	<customer id="1">
+		<name>张三</name>
+		<age>20</age>
+		<phone>124334</phone>
+		<email>1332@qq.com</email>
+		<hobby>
+			<play>羽毛球</play>
+			
+		</hobby>
+	</customer>
+	<customer id="2">
+		<name>李四</name>
+		<age>22</age>
+		<phone>124334</phone>
+		<email>1332@qq.com</email>
+		<hobby>
+			<play>排球</play>
+			
+		</hobby>
+	</customer>
+</customers>

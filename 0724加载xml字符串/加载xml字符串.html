@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<p id="result"></p>
+		<script>
+			function parseXML(str){
+				var xmlDoc;
+				try{
+					xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+					xmlDoc.async=false;//false为同步  (就是页面同时加载，从上解析到下) true  为异步
+					xmlDoc.loadXML(str);//与加载xml字符串的区别:
+				}catch(e){
+					try{
+						var parser=new DOMParser();
+						xmlDoc=parser.parseFromString(str,"text/xml");
+					}catch(x){
+						//alert(x.message);
+						return;
+					}
+				}
+				return xmlDoc;
+			}
+			var xmlStr="<customer><name>张三</name><phone>12330</phone></customer>";
+			var xmlDOM=parseXML(xmlStr);
+			document.getElementById("result").innerHTML=xmlDOM.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+		</script>
+	</body>
+</html>

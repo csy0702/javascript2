@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+		function loadXML(file){
+				var xmlDoc;
+				try{//ie
+					xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+					xmlDoc.async=false;//false为同步  (就是页面同时加载，从上解析到下) true  为异步
+					xmlDoc.load(file);//记载文件用load()    加载页面字符串用loadXML()
+				}catch(e){
+					try{//火狐，Mozilla,opera,etc,
+						xmlDoc=document.implementation.createDocument("","",null);
+						xmlDoc.async=false;
+						xmlDoc.load(file);//加载xml文件，形成文档树
+					}catch(e){
+						try{//谷歌
+							var xmlhttp=new window.XMLHttpRequest();//创建一个请求对象
+							xmlhttp.open("GET",file,false);//设置请求的参数 GET请求类型  file：要请求的文件名  false：同步
+							xmlhttp.send(null);
+							xmlDoc=xmlhttp.responseXML.documentElement;//得到服务器的结果  responseXML documentElement  得到根节点
+						}catch(e){
+							alert("您的浏览器不能正常加载文件，请切换到兼容模式，或者更换浏览器");
+						}
+					}
+				}
+				return xmlDoc;
+			}
+		var xmlDOM=loadXML("hengyang.xml");//加载外部文档
+		   function xmlToJson(xml) {
+			    // Create the return object
+			    var bj = {};
+			    if (xml.nodeType == 1) { // element
+			    // do attributes
+			    if (xml.attributes.length > 0) {
+			    obj["@attributes"] = {};
+			    for (var j = 0; j < xml.attributes.length; j++) {
+			    var attribute = xml.attributes.item(j);
+			    obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+			    }
+			    }
+			    } else if (xml.nodeType == 3) { // text
+			    bj = xml.nodeValue;
+			    }
+			    // do children
+			    if (xml.hasChildNodes()) {
+			    for (var i = 0; i < xml.childNodes.length; i++) {
+			    var item = xml.childNodes.item(i);
+			    var nodeName = item.nodeName;
+			    if (typeof (obj[nodeName]) == "undefined") {
+			    obj[nodeName] = xmlToJson(item);
+			    } else {
+			    if (typeof (obj[nodeName].length) == "undefined") {
+			    var ld = obj[nodeName];
+			    obj[nodeName] = [];
+			    obj[nodeName].push(old);
+			    }
+			    obj[nodeName].push(xmlToJson(item));
+			    }
+		    }
+		    }
+		    return obj;
+		    };
+			document.write(xmlToJson(xmlDOM));
+			
+		</script>
+	</body>
+</html>

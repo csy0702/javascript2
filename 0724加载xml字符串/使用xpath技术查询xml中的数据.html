@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<p id="result"></p>
+		<script>
+			function parseXML(str){
+				var xmlDoc;
+				try{
+					xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+					xmlDoc.async=false;//false为同步  (就是页面同时加载，从上解析到下) true  为异步
+					xmlDoc.loadXML(str);//与加载xml字符串的区别:
+				}catch(e){
+					try{
+						var parser=new DOMParser();
+						xmlDoc=parser.parseFromString(str,"text/xml");
+					}catch(x){
+						//alert(x.message);
+						return;
+					}
+				}
+				return xmlDoc;
+			}
+			//序列化就是将字符串变成对象，反序列化就是将对象转化成字符串
+			var xmlStr="<customers><customer id='1'><name>张三</name><phone>12330</phone></customer><customer i='2'><name>张三</name><phone>12330</phone></customer></customers>";
+			//将字符串xmlStr变成XML document对象
+			var xmlDOM=parseXML(xmlStr);  //xmlDOM->customer节点
+			
+			
+			
+			function selectXMLNodes(xmlDoc,xpath){
+				if('\v'=='v'){//ie
+					xmlDoc.setProperty("SelectionLanguage","XPath");
+					return xmlDoc.documentElement.selectNodes(xpath);
+				}else{//w3c
+					var evaluator=new XPathEvaluator();
+					var resultSet=evaluator.evaluate(xpath,xmlDoc,null,XPathResult.ORDERED_NODE_ITERATOR_TYPE,null);
+					//XPathResult.ORDERED_NODE_ITERATOR_TYPE  按节点顺序解析
+					//通过xpath解析的结果是一个集合
+					var finalArray=[];
+					if( resultSet){
+						var el=resultSet.iterateNext();//循环解析到的结果
+						while(el){
+							finalArray.push(el);
+							el=resultSet.iterateNext();
+						}
+						return finalArray;
+					}
+				}
+			}
+			//这样查出来的结果是一个dom节点    要按dom来操做
+			//var nodeList=selectXMLNodes(xmlDOM,'customers/customer[@id=\"1\"]');//xpath方式
+			
+			var nodeList=selectXMLNodes(xmlDOM,'customers/customer[2]/name');//xpath方式
+			if(xmlDOM.xml){
+				document.getElementById("result").innerText=nodeList[0].xml;//xml文件内容
+			}else{
+				var serializer=new XMLSerializer();
+				document.getElementById("result").innerText=serializer.serializeToString(nodeList[0]);
+			}
+		</script>	
+	</body>
+</html>

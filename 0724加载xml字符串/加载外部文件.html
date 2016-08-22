@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>加载外部链接</title>
+</head>
+
+<body>
+<h1>天气预报本地文件的读取和显示</h1>
+<p id="cityname"></p>
+<p id="weather"></p>
+<p id="xray"></p>
+<p><img id="weapic" src=""/></p>
+<script type="text/javascript">
+	function loadXML(file){
+		var xmlDoc;
+		try{
+			xmlDoc=new ActiveXobject("Microsoft.XMLDOM");
+			xmlDoc.async=false;
+			xmlDoc.load(file);
+		}catch(e){
+			try{
+				xmlDoc=document.implementation.createDocument("","",null);
+				xmlDoc.async=false;
+				xmlDoc.load(file);	
+			}	
+			catch(e){
+			try{
+				var xmlhttp=new window.XMLHttpRequest();
+				xmlhttp.open("GET",file,false);
+				xmlDoc=xmlhttp.requestXML.documentElement;
+			}
+			catch(e){
+				try{
+					var xmlhttp=new window.XMLHttpRequest();
+					xmlhttp.open("GET",file,false);
+					xmlhttp.send(null);
+					xmlDoc=xmlhttp.requestXML.documentElement;
+					}
+					catch(e){
+						alert("您的浏览器不能正常加载文件。请切换到兼容模式，或者更换浏览器");
+					}
+				}	
+			}
+		return xmlDoc;
+		}
+	}
+	
+	var xmlDOM=loadXML("hengyang.xml");
+	document.getElementById("cityname").innerHTML=xmlDOM.getElementsByTagName("string")[0].childNodes[0].nodeValue;
+	document.getElementById("weather").innerHTML=xmlDOM.getElementsByTagName("string")[4].childNodes[0].nodeValue;
+	document.getElementById("xray").innerHTML=xmlDOM.getElementsByTagName("string")[6].childNodes[0].nodeValue;
+	document.getElementById("weapic").src='weather/a_'+xmlDOM.getElementsByTagName("string")[10].childNodes[0].nodeValue;
+</script>
+</body>
+</html>
