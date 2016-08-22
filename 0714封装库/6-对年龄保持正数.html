@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="yctable.js"></script>
+	<body>
+		<script>
+			var obj=yc.parseJSON( '{"name":"tom","age":-20}',function(  k,v){
+				return (k=='age'&& v<0)? 1:v;
+			});
+			
+			alert(obj.name+"\t"+obj.age);
+		</script>
+	</body>
+</html>

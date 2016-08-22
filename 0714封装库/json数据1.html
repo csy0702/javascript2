@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+//			var arr=[1,4,6,8,9,56,7,0];
+//			function change(arr){
+//				for(var i=0;i<arr.length;i++){
+//					document.write(i+":"+arr[i]+"<br />");
+//				}
+//			}
+//			
+//			change(arr);
+			var book={
+				name:"csy",
+				age:20,
+				male:"girl"
+			};
+			var jsontext=JSON.stringify(book);
+			document.write(book);
+			document.write(jsontext);
+			document.write(JSON.parse(jsontext));
+		</script>
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="yctable.js"></script>
+	
+	<body>
+		<div id="con">
+			<p id="a">
+				<span>abc</span>
+				<span>efg</span>
+			</p>
+			<p id="b">b</p>
+			<p id="c">ccc</p>
+		</div>
+		<script>
+			var newnode=document.createElement("p");
+			var txtnode=document.createTextNode("hello");
+			newnode.appendChild(txtnode);
+			
+			
+			yc.insertAfter( newnode, yc.$("a"));
+			
+			yc.removeChildren("a");
+			
+			//yc.prependChild(  "b",newnode);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<script src="yctable.js"></script>
+	<body>
+		<div id="mydiv"></div>
+		<script>
+			var template='<table border="{border}">'+'<tr><th>Last</th><td>{last}</td></tr>'+'<tr><th>First</th><td>{first}</td></tr>'+'</table>';
+			document.write( template);
+			var data={
+				"first":"carl",
+				"last":"hellowood",
+				"border":2
+			};
+			
+			//yc.$("mydiv").innerHTML=yc.supplant(  template,data);
+			
+			
+			var datatemplate=function( template,data){
+				for(var i in data){
+					template=template.replace("{"+i+"}",   data[i]  );
+				}
+				return template;
+			};
+			
+			document.write(datatemplate);
+		</script>
+	</body>
+</html>

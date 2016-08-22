@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="yctable.js"></script>
+	<body>
+		<span id="show">显示/隐藏</span>
+		<div id="r">xxxxxxxxxxxx</div>
+		
+		<script>
+			var a=function(){
+				yc.toggleDisplay("r","block");
+			}
+			
+			var b=function(){
+				yc.toggleDisplay("r","none");
+			}
+			yc.addEvent("show","mouseover",a);
+			yc.addEvent("show","mouseout",b);
+		</script>
+	</body>
+</html>
