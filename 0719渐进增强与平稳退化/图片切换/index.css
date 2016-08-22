@@ -1,0 +1,10 @@
+#slideShow{
+	width: 100px;
+	height: 100px;
+	position: relative;
+	overflow: hidden;
+	/*
+	 overflow四个值:visible   hidden   scroll  auto
+	 				
+	 */
+}
