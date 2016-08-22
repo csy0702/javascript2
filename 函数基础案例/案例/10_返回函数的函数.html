@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>10_返回函数的函数</title>
+</head>
+
+<body>
+<script type="text/javascript">
+   //试看下面代码的返回值
+   function a(){
+		alert('a');
+		return function(){   // 匿名函数
+			alert('b');	
+		}   
+	}
+	
+	var newFunc=a();   //输出???
+	document.write(    newFunc  );    // 输出函数的内容.
+	newFunc();       //输出???
+	
+	a()();
+	   
+	   
+</script>
+</body>
+</html>

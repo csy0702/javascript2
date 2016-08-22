@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>参数的引用传递</title>
+
+<script type="text/javascript">
+
+   function ageIncrement(   person ){
+	   if( person){
+			person.age=person.age+1;   
+	   }	   
+   }
+   //定义一个人的对象
+   var person={
+	     name: '张三',
+		 age: 20,
+		 sex:'男'   
+   };
+  	//第一次调用
+	show( person );
+   //过了一年
+   ageIncrement(  person   );
+   //第二次调用\
+   show(person);
+   function show(person){
+		document.write("姓名:"+ person.name+"<br />");
+   		document.write("年龄:"+ person.age+"<br />");
+   		document.write("性别:"+ person.sex+"<br />");   
+  }
+   
+   
+
+</script>
+
+</head>
+
+<body>
+</body>
+</html>

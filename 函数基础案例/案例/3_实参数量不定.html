@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>3_实参数量不定</title>
+</head>
+
+<body>
+
+<script type="text/javascript">
+
+function sum(a, b){
+		var c=a+b;
+		return c;
+}
+
+
+function add(){
+	var length=arguments.length, sum=0,parameter;
+	for( var i=0;i<length;i++){
+		parameter=arguments[i];
+		sum=sum+parameter;	
+	}
+	return sum;
+}
+
+add( 2,3);
+
+alert(   sum(1) );    //实参少于形参
+</script>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>1_问题_求每个班级的男女比率</title>
+</head>
+
+<body>
+<script type="text/javascript">
+    //求每个班级的男女比率
+	//1班学生
+	var students1=[{
+		name:'张三',
+		gender:1	
+	},{
+		name:'李四',
+		gender:1	
+	},{
+		name:'王五',
+		gender:0	
+	},{
+		name:'赵六',
+		gender:0	
+	}];
+	//2班学生
+	var students2=[{
+		name:'张三',
+		gender:1	
+	},{
+		name:'李四',
+		gender:1	
+	},{
+		name:'王五',
+		gender:1	
+	},{
+		name:'赵六',
+		gender:0	
+	}];
+	//求1班男女比率
+	var maleCount1=0, femaleCount1=0,length1=students1.length,student1,ratio1;
+	for( var i=0;i<length1;i++){
+		student1=students1[i];
+		if( student1.gender==1 ){
+			maleCount1++;	
+		}else{
+			femaleCount1++;	
+		}
+	}
+	ratio1=maleCount1/femaleCount1;
+	alert( ratio1 );
+	
+	//求2班男女比率
+	var maleCount2=0, femaleCount2=0,length2=students2.length,student2,ratio2;
+	for( var i=0;i<length2;i++){
+		student2=students2[i];
+		if( student2.gender==1 ){
+			maleCount2++;	
+		}else{
+			femaleCount2++;	
+		}
+	}
+	ratio2=maleCount2/femaleCount2;
+	alert( ratio2 );
+</script>
+</body>
+</html>

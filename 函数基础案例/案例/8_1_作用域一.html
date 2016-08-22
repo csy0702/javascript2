@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>8_作用域一_局部与全局的区分</title>
+
+<script type="text/javascript">
+    var a="apple";
+	
+	function funcA(){
+		var a="pear";   //局部变量   a, 只在funcA中起作用，且发果与全局变量重名时，局部变量优先于全局变量
+		//a="pear";   //全局变量
+		document.write( a+"<br />");	
+	}
+	
+	funcA();
+	
+	document.write(   a+"<br />" );
+	document.write(   window.a+"<br />");   //全局变量都可以使用window.标识符来进行访问
+</script>
+
+</head>
+
+<body>
+</body>
+</html>

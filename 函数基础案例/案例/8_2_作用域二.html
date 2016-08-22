@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>6_作用域</title>
+</head>
+
+<body>
+
+<script type="text/javascript">
+var zhoujielun={
+	name:"周杰伦",
+	gender:1
+};
+function class1(){
+	var zhoujielun={
+		name:"周杰伦",
+		gender:0
+	};
+	zhoujielun.name="周杰";
+	zhoujielun.gender=1;
+}
+class1();
+alert(  zhoujielun.name );
+</script>
+
+</body>
+</html>

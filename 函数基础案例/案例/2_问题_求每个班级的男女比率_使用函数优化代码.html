@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>2_问题_求每个班级的男女比率_使用函数优化代码</title>
+</head>
+
+<body>
+<script type="text/javascript">
+    //求每个班级的男女比率
+	//1班学生
+	var students1=[{
+		name:'张三',
+		gender:1	
+	},{
+		name:'李四',
+		gender:1	
+	},{
+		name:'王五',
+		gender:0	
+	},{
+		name:'赵六',
+		gender:0	
+	}];
+	//2班学生
+	var students2=[{
+		name:'张三',
+		gender:1	
+	},{
+		name:'李四',
+		gender:1	
+	},{
+		name:'王五',
+		gender:1	
+	},{
+		name:'赵六',
+		gender:0	
+	}];
+	
+	function ratio( students){
+			//求男女比率
+		var maleCount=0, femaleCount=0,length=students.length,student,ratio;
+		for( var i=0;i<length;i++){
+			student=students[i];
+			if( student.gender==1 ){
+				maleCount++;	
+			}else{
+				femaleCount++;	
+			}
+		}
+		ratio=maleCount/femaleCount;
+		return tatio;
+	}
+	
+	alert(  ratio(students1 )  );
+	
+	
+	
+</script>
+</body>
+</html>

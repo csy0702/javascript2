@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>9_函数也是一种数据</title>
+</head>
+
+<body>
+<script type="text/javascript">
+     function f(){ return 1;}
+	 alert(    typeof f  );    // typeof 输出变量的数据类型    ->  function
+	 
+	 
+	 //基本类型的数据的赋值
+	 var a=3;
+	 var b=a;   //将a变量的值 3 赋给了  b. 
+	 
+	 //同以上，
+	 //函数也是一种数据类型，可以拷贝，删除
+	 var sum=function(a,b){return a+b;}
+	 var add=sum;
+	   
+	 
+	 document.write(  add( 1,2) +"<br />" );
+	 
+	
+	 document.write(  (typeof sum)    +"<br />" );
+	 document.write(  (typeof add)    +"<br />");
+	 
+	 
+	 add=function(a,b){ return a-b;}
+	 
+	 document.write(    sum(1,2)+"<br />"    );
+	 
+	 
+	 
+	 
+</script>
+</body>
+</html>

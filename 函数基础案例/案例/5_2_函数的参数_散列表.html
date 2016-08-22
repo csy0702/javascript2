@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>函数的参数_散列表</title>
+</head>
+
+<body>
+
+<script type="text/javascript">
+	//定义一个函数： 用于合并两个对象的值，一个对象是默认值，另一个对象是真实的参数值，如果真实的参数值中有这个属性，则用这个值来替换默认值，否则使用默认值，最终返回一个合并好的值
+	function mergeObject( defaultValue, originValue){
+		if( originValue && typeof originValue == "object" ){
+			for( var key in originValue){
+					defaultValue[key]=originValue[key]||defaultValue[key];
+			}	
+		}	
+		return defaultValue;
+	}
+	
+	function showBookInfo( book ){
+		var defaultValue={
+			name:'未知书籍',
+			pages:0,
+			chapters:1,
+			author:'未知作者'	,
+			type:'未分类'
+		}
+		var obj=mergeObject(   defaultValue, book 	 );
+		document.write(  "书名:"+ defaultValue.name+" 页数:"+defaultValue.pages+",章节数:"+defaultValue.chapters+",作者:"+ defaultValue.author+" 类别:"+defaultValue.type);
+	}
+	
+	var cbook={ name:"c深入钱出",pages:200,chapters:3,author:"zy"};
+	showBookInfo( cbook );
+</script>
+
+</body>
+</html>

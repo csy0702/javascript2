@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>声明函数_采用嵌套匿名函数实现</title>
+
+<script type="text/javascript">
+   function add( a, funcB){
+		   a+=2;   // a=5
+		   if( funcB ){       //判断funcB是否存在。
+				a=funcB( a );     //嵌套调用了funcB函数
+			}
+			return a;
+    }
+	
+	var r= add( 3, function( x){return x*3;} ) ;   //这里这个function函数就是一个匿名函数
+	
+	document.write(   r   );
+</script>
+
+</head>
+
+<body>
+</body>
+</html>

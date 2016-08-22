@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>10_3_函数作为另一个函数的参数</title>
+</head>
+
+<body>
+<script type="text/javascript">
+   var students=new Array();
+   function  add(  stu,  filter ){
+		  if(   filter ){
+			    var r=filter( stu);
+				if( !r ){
+					alert( stu+"不是一个有效数据" );
+					return;
+				}  
+		  } 
+		  students.push( stu );
+   }
+   
+   function filter(stu){
+	    if( stu && (typeof stu == 'object') ) {
+			if(  stu.age<10 || stu.age>26 ){
+				return false;	
+			}	else{
+				return true;	
+			}
+		} 
+   }
+   
+   
+   var stu1={"name":"张三","age":20};
+   add( stu1 ,filter );
+   var stu2={"name":"张四","age":12};
+   add( stu2 , filter );
+   var stu3={"name":"张五","age":-2};
+   add( stu3, filter  );
+   var stu4={"name":"张六","age":200};
+   add( stu4 , filter );
+   
+   
+	   
+	   
+</script>
+</body>
+</html>
