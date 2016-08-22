@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">jinadjie</div>
+		<script>
+			var btn=document.getElementById("box");
+			
+			var hanlder=function(event){
+				var event=event ? event : window.event;
+				
+				switch(event.type){
+					case "click":alert("Clicked");
+					break;
+					
+					case "mouseover":event.target.style.backgroundColor="red";
+					break;
+					
+					case "mouseout":event.target.style.backgroundColor="";
+					break;
+				}
+			};
+			btn.onclick=hanlder;
+			btn.onmouseover=hanlder;
+			btn.onmouseout=hanlder;
+		</script>
+	</body>
+</html>

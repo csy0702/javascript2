@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		*{
+			padding: 0px;
+			margin: 0px auto;
+			
+		}
+		#mainContent{
+			width: 250px;
+			height: 300px;
+			border: 1px solid gray;
+			overflow: scroll;/*溢出部分,滚动条*/
+			margin-top: 20px;
+		}
+		
+		li{
+			list-style: none;
+			text-align: left;
+		}
+		#showhidden{
+			width: 100%;
+			height: 20px;
+			
+		}
+		p{
+			background: url(images/xuanzhuan.gif) no-repeat left center;
+			color: red;	
+		}
+	</style>
+	<body>
+		<div id="mainContent">
+			
+			<div id="myContent">
+				<ul>
+					<li>许世友是个极富个性的将领</li>
+					<li>世友的充分信赖，特别是许</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>世友的充分信赖，特别是许</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>世友的充分信赖，特别是许</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>世友的充分信赖，特别是许</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>世友的充分信赖，特别是许</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>世友的充分信赖，特别是许</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>世友的充分信赖，特别是许</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>世友的充分信赖，特别是许</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>世友的充分信赖，特别是许</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>世友的充分信赖，特别是许</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>世友的充分信赖，特别是许</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>世友的充分信赖，特别是许</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>世友的充分信赖，特别是许</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>世友的充分信赖，特别是许</li>
+					<li>许世友是个极富个性的将领</li>
+					<li>许世友是个极富个性的将领</li>
+					
+					
+				</ul>
+			</div>
+			<div id="showhidden" >
+				<p>&nbsp;&nbsp;&nbsp;加载中，请稍候......</p>
+			</div>
+		</div>
+		<script>
+			var obj=document.getElementById("mainContent");
+			obj.onscroll=function(){
+				var scrollH=obj.scrollHeight;
+				var scrollT=obj.scrollTop;
+				var clientH=obj.clientHeight;
+				//console.log("scrollHeight"+scrollH+"----scrollTop"+scrollT+"------clientHeight"+clientH)
+				
+				if(scrollH==scrollT+clientH){
+					var sh=document.getElementById("showhidden");
+					sh.style.display="block";
+					//
+					window.setTimeout("frush()",2000);
+				}
+			}
+			
+			//加载新的下拉列表
+			function frush(){
+				var newdiv=document.createElement("div");
+				var newul=document.createElement("ul");
+				for(var i=0;i<10;i++){
+					var newli=document.createElement("li");
+					newli.innerHTML="每一天都要过的有意义";
+					newul.appendChild(newli);
+				}
+				newdiv.appendChild(newul);
+				var sh=document.getElementById("showhidden");
+				//obj为父节点
+				obj.insertBefore(newdiv,sh);
+			}
+		</script>
+	</body>
+</html>

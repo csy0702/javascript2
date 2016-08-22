@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="yctable.js"></script>
+		<script src="weather.js"></script>
+		<link rel="stylesheet" href="weather.css" />
+	</head>
+	<style>
+	/*透视效果*/
+	
+	/*翻转前和翻转后的宽高*/
+	.container, .font, .back {
+		width: 320px;
+		height: 200px;
+	}
+	
+	.div1 {
+		transition: 0.6s;
+		transform-style: preserve-3d;
+		position: relative;
+	}
+	
+	.font, .back {
+		backface-visibility: hidden;
+		transition: 0.6s;
+		transform-style: preserve-3d;
+	
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.font {
+		z-index: 2;
+		transform: rotateY(0deg);
+		background:yellow;
+	}
+	.back {
+		transform: rotateY(-180deg);
+		background:red;
+	}
+	.container {
+		position: relative;
+	}
+	
+	.back {
+		transform: rotateY(180deg);
+	}
+	
+	.container:hover .back {
+		 transform: rotateY(0deg);
+	}
+	
+	.container:hover .font {
+		 transform: rotateY(180deg);
+	}
+	</style>
+	<body>
+		<div class="container">
+			<div class="div1">
+				<div class="font">
+					<p class="title">天气预报本地文件的读取和显示</p>
+					<p class="cityname"></p>
+					<p class="time"></p>
+					<p class="weath"></p>
+					<p class="xray"></p>
+					<p><img class="weapic" src=""/></p>
+					<span id="more">More</span>
+				</div>
+				<div class="back">
+					
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+
+		window.onload=function(){
+			
+			getValueClass("0","cityname1","span");
+			getValueClass("3","time1","span");
+			getValueClass("4","weath1","span");
+			getValueClass("11","weapic1","img","","weather/");
+			
+		}
+		
+		</script>

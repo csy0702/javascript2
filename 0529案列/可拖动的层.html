@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		#box{
+			position: absolute;
+			left: 300px;
+			top: 200px;
+			font-size: 12px;
+			background: pink;
+			padding: 5px;
+			box-shadow: 2px 2px 4px red;
+			-ms-box-shadow: 2px 2px 4px red;
+			
+		}
+		#content{
+			border: 1px solid aliceblue;
+		}
+		#top{
+			width: 425px;
+			line-height: 25px;
+			cursor: move;
+			background: azure;
+			border-bottom: 1px solid bisque;
+			padding-left: 5px;			
+		}
+		#close{
+			color: red;
+			font-size: 28px;
+			font-weight: bold;
+			float: right;
+			position: absolute;
+			top: 2px;
+			right: 8px;
+			cursor: pointer;
+			
+		}
+		#bottom{
+			width: 420px;
+			height: 250px;
+			padding: 10px 5px;
+		}
+	</style>
+	<body>
+		<div id="box">
+			<div id="content">
+				<div id="top" >
+					可拖拽
+					<span id="close" >x</span>
+				</div>
+				<div id="bottom">
+					好好学习，天天向上
+				</div>
+			</div>
+		</div>
+		<script>
+			
+			window.onload=function(){
+				var obox=document.getElementById("box");
+				var otop=document.getElementById("top");
+				document.getElementById("close").onclick=function(){
+					document.getElementById("box").style.cssText="display: none;";
+				}
+				startDrag(obox,otop);
+			}
+			
+			var params={
+				left:0,
+				top:0,
+				currentX:0,
+				currentY:0,
+				flag:false
+			}
+			//封装判别样式
+			function getStyle(obj,attr){
+				if(obj.currentStyle){
+					return obj.currentStyle[attr];
+				}else{
+					return getComputedStyle(obj,false)[attr];
+				}
+			}
+			function startDrag(obox,otop){
+				//获取到默认状态下box的left，top值
+				params.left=getStyle(obox,"left");
+				params.top=getStyle(obox,"top");
+				
+				//鼠标按下
+				//1,修改flag的值    2，
+				obox.onmousedown=function(event){
+					params.flag=true;
+					//不让鼠标去选中文字
+					if(!event){
+						event=window.event;
+						otop.onselect=function(){
+							return false;
+						}
+					}
+					var e=event?event:window.event;
+					params.currentX=e.clientX;
+					params.currentY=e.clientY;
+				}
+				
+				//鼠标移动
+				obox.onmousemove=function(event){
+					var e=event?event:window.event;
+					if(params.flag){
+						var nowX=e.clientX;
+						var nowY=e.clientY;
+						var disX=nowX-params.currentX;
+						var disY=nowY-params.currentY;//移动后的差值
+						obox.style.left=parseInt(params.left)+disX+"px";
+						obox.style.top=parseInt(params.top)+disY+"px";
+					}
+				}
+				//鼠标松开
+				obox.onmouseup=function(event){
+					var e=event?event:window.event;
+					params.flag=false;
+					params.left=getStyle(obox,"left");
+					params.top=getStyle(obox,"top");
+				}
+			}
+		</script>
+	</body>
+</html>

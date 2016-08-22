@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		#canvas{
+			margin: 0 auto;
+			display: block;
+		}
+	</style>
+	<body>
+		
+		<canvas id="canvas">
+			你的浏览器不支持canvas，请更新浏览器
+		</canvas>
+		
+		<script>
+			
+			
+			
+		//定义画布大小
+			var canvasWidth=600;
+			var canvasHeight=canvasWidth;
+		//定义变量	
+			var flag=false;
+			var lastLoc={x:0,y:0};
+			
+			var canvas=document.getElementById("canvas");
+			var context=canvas.getContext("2d");
+			//设置画布大小
+			canvas.width=canvasWidth;
+			canvas.height=canvasHeight;
+			
+			//开始绘制
+			draw();
+			function draw(){
+				//这一段canvas的属性，只会在这一段起作用
+				
+				context.save();
+				//定义画笔颜色
+			
+				context.strokeStyle="rgb(230,10,10)";
+				//开始绘制路径
+				context.beginPath();
+				context.moveTo(0,0);
+				context.lineTo(canvasWidth,0);
+				context.lineTo(canvasWidth,canvasHeight);
+				context.lineTo(0,canvasHeight);
+				//绘制结束
+				context.closePath();
+				//画笔粗细
+				context.lineWidth="10";
+				//显示到画布里面去
+				context.stroke();
+				
+				context.beginPath();
+				context.moveTo(0,0);
+				context.lineTo(canvasWidth,canvasHeight);
+		
+				context.moveTo(canvasWidth,0);
+				context.lineTo(0,canvasHeight);
+		
+				context.moveTo(canvasWidth/2,0);
+				context.lineTo(canvasWidth/2,canvasHeight);
+		
+				
+				context.moveTo(0,canvasHeight/2);
+				context.lineTo(canvasWidth,canvasHeight/2);
+				
+				//绘制结束
+				context.closePath();
+				//画笔粗细
+				context.lineWidth="1";
+				//显示到画布里面去
+				context.stroke();
+				
+				context.restore();
+				
+				
+			}
+			//用户开始绘制
+				
+			canvas.onmousedown=function(e){
+				delDefalut(e);
+				flag=true;
+				lastLoc=windowToCanvas(e.clientX,e.clientY);
+				
+			}
+			canvas.onmouseup=function(e){
+				delDefalut(e);
+				flag=false;
+				
+				
+			}
+			canvas.onmouseout=function(e){
+				delDefalut(e);
+				flag=false;
+				
+				
+			}
+			
+			canvas.onmousemove=function(e){
+				delDefalut(e);
+				if(flag){
+						var curLoc=windowToCanvas(e.clientX,e.clientY);
+						context.beginPath();
+						context.moveTo(lastLoc.x,lastLoc.y);
+						context.lineTo(curLoc.x,curLoc.y);
+						context.strokeStyle="yellow";
+						context.lineWidth=20;
+						context.lineCap="round";//定义线的结束位置的形状为圆形
+						context.lineJoin="round";//定义线的形状为圆角
+						context.closePath();
+						context.stroke();
+						//把结束位置每一次都当成开始的位置进行再一次赋值操作
+						lastLoc=curLoc;
+						
+						
+					}
+			}
+			
+			
+			//阻止浏览器的默认行为
+			function delDefalut(event){
+				if(window.event){
+					a=window.event;
+					a.returnValue=false;
+					a.preventDefault();
+				}else{
+					
+					event.preventDefault();//阻止现代浏览器的默认行为
+				}
+			}
+			//坐标转换
+			function windowToCanvas(x,y){
+				//获得canvas的盒子，然后通过这个盒子，来获得canvas的left和top
+				var box=canvas.getBoundingClientRect();
+				//得到盒子离网页的左边距和上边距后，x和y代表得到的在网页中的坐标，相减之后得到以盒子左上角为原点的坐标。这样进行写字就不会画到盒子外面去了
+				return {x:Math.floor(x-box.left),y:Math.floor(y-box.top)};
+			}
+		</script>
+	</body>
+</html>

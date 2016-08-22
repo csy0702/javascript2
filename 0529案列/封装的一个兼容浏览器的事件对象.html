@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="{CHARSET}">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var eventUtil = {　　
+				　　 getEvent: function(e) {　　　　
+				        return e || window.event;
+				    },
+				    getTarget: function(e) {　　
+				        return e.srcElement || e.target;
+				    },
+				    stopEvent: function(e) {　　
+				　　 　　e.returnValue && (e.returnValue = false, e.cancelBubble = false);
+				        e.preventDefault && (e.preventDefault(), e.stopPropagation());
+				    },
+				    addEvent: function(elem, evType, fn, capture) {
+				        var indicator = arguments.callee;
+				        elem.attachEvent && (indicator = function(elem, evType, fn) {
+				            elem.attachEvent('on' + evType, fn)
+				        }).apply(this, arguments);
+				        elem.addEventListener && (indicator = function(elem, evType, fn, capture) {
+				            elem.addEventListener(evType, fn, capture || false);
+				        }).apply(this, arguments);
+				        elem['on' + evType] && (indicator = function(elem, evType, fn) {
+				            elem['on' + evType] = function() {
+				                fn();
+				            };
+				        }).apply(this, arguments);
+				    },
+				    removeEvent: function(elem, evType, fn, capture) {
+				        var indicator = arguments.callee;
+				        elem.detachEvent && (indicator = function(elem, evType, fn) {
+				            elem.detachEvent('on' + evType, fn)
+				        }).apply(this, arguments)
+				         elem.removeEventListener && (indicator = function(elem, evType, fn, capture) {
+				            elem.removeEventListener(evType, fn, capture || false);
+				        }).apply(this, arguments);
+				        elem['on' + evType] && (indicator = function(elem, evType, fn) {
+				            elem['on' + evType] = null;
+				        }).apply(this, arguments);
+				    }
+				}
+		</script>
+	</body>
+</html>
