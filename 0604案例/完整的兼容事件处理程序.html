@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var eventUtil={
+				//添加事件
+				addHanlder: function (element,type,handler){
+					if(element.addEventListener){
+						//DOM2级
+						element.addEventListener(type,handler,false);
+					}else if(element.attachEvent){
+						//ie
+						element.attachEvent("on"+type,handler);
+					}else{
+						//DOM0级
+						element["on"+type]=handler;
+					}
+				},
+				//删除事件
+				removeHanlder:function(element,type,handler){
+					if(element.addEventListener){
+						//DOM2级
+						element.removeEventListener(type,handler,false);
+					}else if(element.attachEvent){
+						//ie
+						element.detachEvent("on"+type,handler);
+					}else{
+						//DOM0级
+						element["on"+type]=null;
+					}
+				},
+				//阻止浏览器的默认行为
+				preventDefault:function(event){
+					var e=event? event:window.event;
+					if(e.preventDefault){
+						e.preventDefault();
+					}else{
+						e.returnValue=false;
+					}
+				},
+				//阻止事件冒泡；
+				stopPropagation:function(event){
+					var e=event? event:window.event;
+					if(e.stopPropagation){
+						e.stopPropagation();
+					}else{
+						e.cancelBubble=true;//ie阻止事件冒泡
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

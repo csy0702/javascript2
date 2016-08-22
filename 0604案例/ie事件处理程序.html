@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="button" value="ie事件处理程序" id="btn" />
+		<script>
+			
+			var btn=document.getElementById("btn");
+			btn.attachEvent("onclick",show);
+			
+			function show(){
+				alert("ie事件处理程序");
+			}
+			
+			//btn.detachEvent("onclick",show);
+			
+			btn.removeEventListener("click",show)
+		</script>
+	</body>
+</html>

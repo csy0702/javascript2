@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input value="html事件处理程序" type="button" id="btn1" onclick="show1()" onclick="show2()" />
+		<input value="DOM0事件处理程序" type="button" id="btn2" />
+		<input value="DOM2事件处理程序" type="button" id="btn3" />
+		
+		<script>
+			function show1(){
+				alert("html事件处理程序:show1");
+			}
+			function show2(){
+				alert("html事件处理程序:show1");
+			}
+			
+			var btn2=document.getElementById("btn2");
+			btn2.onclick=function(){
+				alert("DOM0事件处理程序1");
+			}
+			btn2.onclick=function(){
+				alert("DOM0事件处理程序2");
+			}
+			
+			var btn3=document.getElementById("btn3");
+			btn3.addEventListener("click",function(){
+				alert("DOM2事件处理程序1");
+			});
+			btn3.addEventListener("click",function(){
+				alert("DOM2事件处理程序2");
+			});
+		</script>
+	</body>
+</html>

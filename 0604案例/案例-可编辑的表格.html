@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			font-size:12px;
+			font-family:"微软雅黑";
+		}
+		
+		table{
+			border:1px solid #999;
+			border-collapse:collapse;/*修正单元格之间的边框为可合并*/
+			width:400px;
+		}
+		
+		table tr{
+			line-height:24px;
+		}
+		
+		table tbody th{
+			background:#36F;
+			width:50%;
+		}
+		
+		table td{
+			text-align:center;
+		}
+		
+		a{
+			display:inline-block;
+			padding:8px;
+			background:#3C6;
+			text-decoration:none;
+			font-size:18px;
+			color:#FC3;
+			font-family:"隶书";
+			margin-left:10px;
+		}
+		
+		a:hover{
+			background:#666;
+		}
+		
+		#tishiInfo{
+			border:1px solid #699;
+			border-radius:3px;
+			width:200px;
+			height:30px;
+			line-height:30px;
+			font-size:14px;
+			background:#C1E3D3 url(images/tishi.png) no-repeat left center;
+			color:#fff;
+			padding-left:30px;
+			position:absolute;
+			top:200px;
+			left:600px;
+			display:none;
+		}
+	</style>
+</head>
+<body>
+	<table border="1px" cellpadding="0px" cellspacing="0px" id="mytable" align="center" width="600px">
+    	<thead>
+        	<tr>
+            	<th colspan="2">学生信息表</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<tr>
+            	<th>学号</th>
+                <th>姓名</th>
+            </tr>
+            <tr>
+            	<td>08301440110</td>
+                <td>张三</td>
+            </tr>
+        	<tr>
+            	<td>08301440111</td>
+                <td>李四</td>
+            </tr>
+            <tr>
+            	<td>08301440112</td>
+                <td>王五</td>
+            </tr>
+            <tr>
+            	<td>08301440113</td>
+                <td>赵六</td>
+            </tr>
+            <tr>
+            	<td>08301440114</td>
+                <td>钱七</td>
+            </tr>
+            <tr>
+            	<td>08301440115</td>
+                <td>王八</td>
+            </tr>
+             <tr>
+            	<td>08301440112</td>
+                <td>王五</td>
+            </tr>
+            <tr>
+            	<td>08301440113</td>
+                <td>赵六</td>
+            </tr>
+            <tr>
+            	<td>08301440114</td>
+                <td>钱七</td>
+            </tr>
+            <tr>
+            	<td>08301440115</td>
+                <td>王八</td>
+            </tr>
+        </tbody>
+    </table>
+    <br /> <br />
+    <center><a href="javascript:delInfo()">删除光标所在行</a><a href="javascript:addInfo()">添加一行</a></center>
+    <p id="tishiInfo">信息修改成功...</p>
+    <script>
+    	window.onload=function(){
+    		showInfo();//调用showInfo函数
+    	}
+    	
+    	var delObj;
+    	//设置颜色
+    	function setColor(){
+    		//改变背景颜色    偶数行是白色   奇数行为粉色
+    		var tbodyTrs=document.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+    		for(var i=0;i<tbodyTrs.length;i++){
+    			//每次调用setColor都要清除所有颜色的背景，然后再判断奇偶行进行换颜色
+    			tbodyTrs[i].style.cssText="background: none;";
+    			if(i%2==0){
+    				//判断是不是奇数
+    				tbodyTrs[i].style.cssText="background: antiquewhite;";
+    			}
+    		}
+    		//绑定事件,鼠标移入移出事件
+    		for(var i=0;i<tbodyTrs.length;i++){
+    			//闭包，利用index来保存现场，不然利用闭包每次都是显示最后一个值
+    			tbodyTrs[i].index=i;
+    			//每一个tr绑定一个mouseover鼠标移入事件
+    			tbodyTrs[i].addEventListener("mouseover",function(){
+    				this.style.cssText="background:yellow";
+    				//在这个闭包函数中this是取不到i的值的，所以就需要用tbodyTrs[i].index=i来取到i的值;
+    			})
+    			//每一个tr绑定一个mouseout鼠标移出事件
+    			tbodyTrs[i].addEventListener("mouseout",function(){
+    				if(this.index%2==0){
+    					this.style.cssText="background: antiquewhite;";
+    				}else{
+    					this.style.cssText="background:white";
+    				}
+    				
+    			})
+    			
+    		}
+    	}
+    	function showInfo(){
+    		
+    		setColor();
+    		
+    		var tds=document.getElementsByTagName("td");
+    		
+    		if(arguments.length==1){
+    			tds[tds.length-1].addEventListener("click",tdclick);
+    			tds[tds.length-2].addEventListener("click",tdclick);
+    		}else{
+    			for(var i=0;i<tds.length;i++){
+	    			tds[i].removeEventListener("click",tdclick);
+	    			tds[i].addEventListener("click",tdclick);
+    			}
+    		}
+    		
+    		function tdclick(){
+    			
+    			//获取到删除的tr    即td的父级元素
+    			delObj=this.parentNode;
+    			//点击td，创建一个input标签
+    			var inputObj=document.createElement("input");
+    			inputObj.type="txt";
+    			inputObj.style.cssText="border:0px;font-size:12px";
+    			
+    			//定义当前被点击的td
+    			var tdObj=this;
+    			//获取到td里面的值，赋给input
+    			inputObj.value=tdObj.innerHTML;
+    			//把td里面的值清空
+    			var txt=tdObj.innerHTML;
+    			tdObj.innerHTML="";
+    			
+    			tdObj.appendChild(inputObj);
+    			//选中input标签里面的值
+    			inputObj.select();
+    			//删除td的点击事件
+    			tdObj.removeEventListener("click",tdclick);
+    			
+    			
+    			//添加键盘事件
+    			inputObj.onkeydown=function(event){
+    				var e=event?event:window.event;
+    				var keycode=e.keyCode;
+    				if(keycode==13){
+    					//回车键     获得input标签里面的值，赋给td
+    					var inputVal=this.value;
+    					tdObj.innerHTML=inputVal;
+    				}else if(keycode==27){   //esc
+    					tdObj.innerHTML=txt;
+    				}
+    				tdObj.addEventListener("click",tdclick);
+    			}
+    			//区分ie浏览器和其他浏览器
+    			
+    			//添加失去焦点事件
+    			inputObj.onblur=function(){
+    				tdObj.innerHTML=txt;//失去焦点之后，将值重新添加在里面
+    				//tdObj.removeEventListener("click",tdclick);
+    				tdObj.addEventListener("click",tdclick);
+    			}
+    		}
+    		
+    	}
+    	//删除行
+    	function delInfo(){
+    		var result=confirm("你确定要删除这个数据吗");
+    		if(result){
+    			//兼容ie    因为ie中没有remove这个方法
+    			if(window.ActiveXObject){
+    				delObj.parentNode.removeChild(delObj);
+    			}else{
+    				delObj.remove();
+    			}
+    			setColor();
+    		}
+    	}
+    	
+    	
+    	function addInfo(){
+    		//添加一行   就是创建td,创建tr,再把td插入到tr里面，再插入到tbody中
+    		var tbody=document.getElementsByTagName("tbody")[0];
+    		var trInfo=document.createElement("tr");
+    		var tdInfo=document.createElement("td");
+    		//设值
+    		tdInfo.innerHTML="0134233445";
+    		trInfo.appendChild(tdInfo);
+    		var tdInfo2=document.createElement("td");
+    		tdInfo2.innerHTML="久久";
+    		
+    		trInfo.appendChild(tdInfo2);
+    		tbody.appendChild(trInfo);
+    		//在showInfo函数中判断传入的参数   为1的话就只对我们添加的最后一行进行绑定事件
+    		showInfo(1);
+    	}
+    </script>
+</body>
+</html>

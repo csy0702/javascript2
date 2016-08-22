@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<audio src="A-Lin - 给我一个理由忘记.mp3"  id="audio" controls="yes">
+			对不起，您的浏览器不支持h5，请更新浏览器
+		</audio><br /><br />
+		<input type="button" value="播放" onclick="playOrPause(this)" />
+		<input type="button" value="隐藏控制框" onclick="hideOrShow(this)" />
+		<input type="button" value="静音" onclick="muted(this)" />
+		<input type="button" value="获取播放时间" onclick="getTime(this)" />
+		<input type="button" value="音量+" id="upvol" onclick="vol('up')" />
+		<input type="button" value="音量-" id="upvol2" onclick="vol('down')" />
+		当前音量：<span id="nowVol"></span>
+		
+		
+		<script>
+			var audio;
+			window.onload=function(){
+				audio=document.getElementById("audio");
+				document.getElementById("nowVol").innerHTML=audio.volume*100;
+			}
+			
+			function playOrPause(obj){
+				if(audio.paused){
+					audio.play();
+					obj.value="暂停";
+				}else{
+					audio.pause();
+					obj.value="播放";
+				}
+			}
+			function hideOrShow(obj){
+				if(audio.controls){
+					audio.removeAttribute("controls");
+					obj.value="显示控制框";
+				}else{
+					audio.controls="yes";
+					obj.value="隐藏控制框";
+				}
+			}
+			function muted(obj){
+				if(audio.muted){
+					audio.muted=false;
+					obj.value="开启静音";
+				}else{
+					audio.muted=true;
+					obj.value="关闭静音";
+				}
+			}
+			function getTime(obj){
+				console.log(audio.currentTime);
+			}
+			function vol(obj){
+				
+				if(obj=='up'){
+					
+					var volume=audio.volume+0.1;
+					
+					if(volume>=1){
+						volume=1;
+					}
+					audio.volume=volume;
+				}else if(obj=='down'){
+					var volume=audio.volume-0.1;
+					if(volume<=0){
+						volume=0;
+					}
+					
+					audio.volume=volume;
+				}
+				document.getElementById("nowVol").innerHTML=parseInt(audio.volume*100);
+			}
+			
+			//快捷键
+			document.onkeydown=function(event){
+				var e=event?  event:window.event;
+				var keycode=e.keyCode;
+				//空格    控制播放暂停
+				if(keycode==32){
+					playOrPause(document.getElementsByTagName("input")[0]);
+				}
+				//shift+s   控制隐藏控制台
+				if(e.shiftKey&&  keycode==83){
+					hideOrShow(document.getElementsByTagName("input")[1]);
+				}
+				//Ctrl+右  控制向右快进
+				if(e.ctrlKey&&  keycode==39){
+					audio.currentTime+=5;
+				}
+			}
+		</script>
+	</body>
+</html>

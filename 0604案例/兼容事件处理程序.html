@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input value="事件处理程序" type="button" id="btn2" />
+		
+		<script>
+		//添加事件
+			function addHanlder(element,type,handler){
+				if(element.addEventListener){
+					//DOM2级
+					element.addEventListener(type,handler,false);
+				}else if(element.attachEvent){
+					//ie
+					element.attachEvent("on"+type,handler);
+				}else{
+					//DOM0级
+					element["on"+type]=handler;
+				}
+			//删除事件
+			function removeHanlder(element,type,handler){
+				if(element.addEventListener){
+					//DOM2级
+					element.removeEventListener(type,handler,false);
+				}else if(element.attachEvent){
+					//ie
+					element.detachEvent("on"+type,handler);
+				}else{
+					//DOM0级
+					element["on"+type]=null;
+				}
+				
+				var btn=document.getElementById("btn2");
+				addHanlder(btn,"click",show);
+				function show(){
+					alert("aaa");
+				}
+			
+		</script>
+	</body>
+</html>

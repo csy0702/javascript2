@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="mydiv">
+			<p id="myp">
+				<span id="myspan">点击我</span>
+			</p>
+		</div>
+		
+		
+		<script>
+			var mydiv=document.getElementById("mydiv");
+			var myp=document.getElementById("myp");
+			var myspan=document.getElementById("myspan");
+			mydiv.addEventListener("click",function(){
+				console.log("div");
+			},false)
+			myp.addEventListener("click",function(){
+				console.log("p");
+			},false)
+			myspan.addEventListener("click",function(){
+				console.log("span");
+			},false)
+			mydiv.addEventListener("click",function(){
+				console.log("div");
+			},true)
+			myp.addEventListener("click",function(){
+				console.log("p");
+			},true)
+			myspan.addEventListener("click",function(){
+				console.log("span");
+			},true)
+		</script>
+	</body>
+</html>

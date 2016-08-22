@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		出生日期：
+		<select id="year" onchange="setDay(this,month,day)">
+			<option value="">年</option>
+		</select>
+		<select id="month" onchange="setDay(year,this,day)">
+			<option value="">月</option>
+		</select>
+		<select id="day">
+			<option value="">日</option>
+		</select>
+		
+		<script>
+			var myyear=document.getElementById("year");
+			var mymon=document.getElementById("month");
+			var myday=document.getElementById("day");
+			
+			window.onload=function(){
+				//添加年
+				//获取当前的年份
+				for(var i=new Date().getFullYear();i>1900;i--){
+					addOption(myyear,i,i);
+				}
+				
+				//添加月份
+				
+				for(var i=1;i<=12;i++){
+					addOption(mymon,i,i);
+				}
+				
+				//添加日期
+				for(var i=1;i<31;i++){
+					addOption(myday,i,i);
+				}
+			}
+			
+			//设置天
+			function setDay(year,month,day){
+				var monthDays=[31,28,31,30,31,30,31,31,30,31,30,31];
+				var y=year.options[year.selectedIndex].text;
+				var m=month.options[month.selectedIndex].text;
+				
+				//因为月份也是一个option包含在里面 ，所以要减1
+				var DayNum=monthDays[m-1];
+				
+				//判断闰年
+				if(m==2&& (( year%4==0 && year%100!=0 )||(year%400==0))){
+					DayNum++;
+				}
+				
+				//删除多余的天数    day.options.length-1是因为月份也是一个option包含在里面
+				for(var i=day.options.length-1;i>=DayNum;i--){
+					day.remove(i);
+				}
+				
+				for(var i=day.options.length;i<=DayNum;i++){
+					addOption(day,i,i);
+				}
+			}
+			
+//			function isLeapYear(year){
+//				return ( year%4==0 && year%100!=0 )||(year%400==0);
+//			}
+			//创建option并且给它设值
+			function addOption(obj,text,value){
+				var option=document.createElement("option");
+				//给option设置文本值
+				option.text=text;
+				//给option设置value值
+				option.value=value;
+				//obj.options:获取到obj下面所有的option
+				//把option插入到select里面
+				obj.options.add(option);
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	    <input type="text" id="inp" /><span id="myspan"></span><br />
+	    
+	    <div id="test">今天天气好</div>
+	    <input type="text" value="测试文字" id="myp" />
+		<script>
+			window.onunload=function(){
+				window.open("http://www.baidu.com");
+			}
+			
+			window.onbeforeunload=function(){
+				return "真的要离开吗";
+			}
+			
+			var inp=document.getElementById("inp");
+			var myspan=document.getElementById("myspan");
+			
+			inp.onfocus=function(){
+				myspan.innerHTML="正在输入";
+			}
+			inp.onblur=function(){
+				myspan.innerHTML=inp.value;
+			}
+			
+			var myp=document.getElementById("myp");
+			var div=document.getElementById("test");
+			
+			div.onselect=function(){
+				alert("触发了选中事件");
+			}
+			myp.onselect=function(){
+				alert("触发了选中事件");
+			}
+			
+			
+		</script>
+	</body>
+</html>
