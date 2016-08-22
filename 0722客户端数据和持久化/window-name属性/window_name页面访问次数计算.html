@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+		//可以跨域()    跨选项卡
+			if(window.name){
+				var val=parseInt( window.name);
+				val+=1;
+				window.name=val;
+			}else{
+				window.name=1;
+			}
+			
+			document.write("页面被访问的次数"+window.name);
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

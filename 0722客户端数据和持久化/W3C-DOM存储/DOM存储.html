@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			alert("最开始页面加载时取："+sessionStorage.hello);
+			sessionStorage["hello"]='cs';
+			sessionStorage["today"]='sun';
+			alert(sessionStorage.hello);
+			alert(sessionStorage.getItem("hello"));
+			alert( sessionStorage.key(1));//key中输入索引值字符串
+		</script>
+	</body>
+</html>

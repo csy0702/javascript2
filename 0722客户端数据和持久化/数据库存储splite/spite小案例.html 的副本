@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="yctable.js"></script>
+	</head>
+	<body>
+		<h1>添加学生</h1>
+		<hr/>
+		<p>学生名：<input type="text" name="sname" id="sname"/></p>
+		<p>年龄：<input type="text" name="age" id="age"/></p>
+		<input type="button" id="btn" value="添加" />
+		<hr />
+		<table border="1" width="500px">
+			<thead id="thead">
+				<tr>
+					<td>学生号</td>
+					<td>学生名</td>
+					<td>年龄</td>
+					<td>操作(删除)</td>
+				</tr>
+			</thead>
+			<tbody id="content"></tbody>
+		</table>
+		<script>
+			if(window.openDatabase){
+									//创建数据库  test
+								ab=openDatabase("testing",1.0,"testingab",1000);
+									//创建表
+								ab.transaction(function(transaction){
+									transaction.executeSql("create table student(sid int auto_increment primary key,sname text,age int)",[]);
+								});
+			}	
+				yc.addEvent("btn","click",function(){
+						var sname=yc.$("sname").value;
+						var age=yc.$("age").value;
+						//判断是否输入了信息，若没有输入则不执行下面的语句
+						if(!(sname&&age)){return false;}
+						var content=yc.$("content");
+						var trs=content.getElementsByTagName("tr");
+						var length=trs.length;
+						content.insertRow(0);
+						content.rows[0].insertCell(0);
+						//每一行的第一列的序号进行排列
+						function sort(){
+							
+							for(var j=0;j<=length;j++){
+								content.rows[j].cells[0].innerHTML=(j+1);
+								//content.rows[j].cells[0].setAttribute("id","myfirst"+(j+1));
+							}
+						}
+						
+						sort();
+						
+						//给剩余三列添加值
+						var arr=[sname,age,"删除"];
+						for(var i=1;i<4;i++){
+							
+							content.rows[0].insertCell(i);
+							content.rows[0].cells[i].innerHTML=arr[i-1];
+							content.rows[0].cells[i].setAttribute("class","mytd"+i);
+							
+						}
+						yc.insertAfter("content","thead");
+						var tdnames=document.getElementsByClassName("mytd3");
+						//给每个删除绑定一个事件
+						for(var e=0;e<tdnames.length;e++){
+							tdnames[e].onclick=function(){
+							
+								var result=confirm("你确定要删除这个数据吗");
+								if(result){
+						    			//兼容ie    因为ie中没有remove这个方法
+						    			if(window.ActiveXObject){
+						    				var first=this.parentNode.firstChild.innerHTML;
+						    				trs[first].parentNode.removeChild(trs[first]);
+						    				sort();
+						    			}else{
+						    				var first=this.parentNode.firstChild.innerHTML;
+						    				trs[first].remove();
+						    				sort();
+										}
+						    	}
+							}
+						}
+						
+
+						//保存
+				        function save() {  
+							var ab;
+								//创建数据库  testing
+							if(window.openDatabase){
+								
+								
+								for (var i = 0; i < content.rows.length; i++) {
+					                var name = content.rows[i].cells[1].innerHTML;
+					                var age = content.rows[i].cells[2].innerHTML;
+					                //alert(name+age);
+									//插入数据
+									ab.transaction(function(transaction){
+										transaction.executeSql("insert into table student(sid,sname,age) values(0,"+"\'"+name+"\'"+","+age+")",[]);
+									});
+//									ab.transaction(function(transaction){
+//										transaction.executeSql("update student set sname='name'   where sname='name'" ,[]);
+//									});
+				       		    }
+							}
+						}
+						save();
+						
+						
+				})
+
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script>
+		//事务，就是将多条相关语句连成一个事件，只要前一条语句操作失败，则后一条语句自动失效
+			var db;
+			//创建数据库  test
+			if(window.openDatabase){
+				//创建数据库  test
+				db=openDatabase("test",1.0,"testdb",1000);
+				//创建表
+				db.transaction(function(transaction){
+					transaction.executeSql("create table student(sid int auto_increment primary key,sname text,age int,sex text,address text)",[]);
+				});
+				//插入数据
+				db.transaction(function(transaction){
+					transaction.executeSql("insert into student(sid,sname,age,sex,address) values(0,'csy',20,'女','湖南')",[]);
+				//transaction.executeSql("insert into student(sid,sname,age,sex,address) values(1,'ljj',20,'女','湖南')",[]);
+				});
+				//更新修改数据
+//				db.transaction(function(transaction){
+//					transaction.executeSql("update student set sname='李四' where sname='csy'" ,[]);
+//				});
+			};
+			
+		</script>
+	</body>
+</html>

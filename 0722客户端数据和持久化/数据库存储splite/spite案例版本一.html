@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="yctable.js"></script>
+	</head>
+	<body>
+		<h1>添加学生</h1>
+		<hr/>
+		<p>学号：<input type="text" name="sort" id="sort"/></p>
+		<p>学生名：<input type="text" name="sname" id="sname"/></p>
+		<p>年龄：<input type="text" name="age" id="age"/></p>
+		<input type="button" id="btn" value="添加" />
+		<hr />
+		<table border="1" width="500px">
+			<thead id="thead">
+				<tr>
+					<td>学生号</td>
+					<td>学生名</td>
+					<td>年龄</td>
+					<td>操作(删除)</td>
+				</tr>
+			</thead>
+			<tbody id="content"></tbody>
+		</table>
+		<script>
+			var ab;
+			if(window.openDatabase){
+									//创建数据库  test
+				ab=openDatabase("testing",1.0,"testingab",1000);
+									//创建表
+				ab.transaction(function(transaction){
+					transaction.executeSql("create table student(sid int auto_increment primary key,sname text,age int)",[]);
+				});
+			}	
+			yc.addEvent("btn","click",function(){
+				if(!ab){return false;}
+
+				var sname=yc.$("sname").value;
+				var age=yc.$("age").value;
+				var sort=yc.$("sort").value;
+						//判断是否输入了信息，若没有输入则不执行下面的语句
+				if(!(sname&&age&&sort)){return false;}
+				var content=yc.$("content");
+
+				var trs=content.getElementsByTagName("tr");
+				var length=trs.length;
+				var arr=[sort,sname,age,"删除"];
+				var newtr=content.insertRow(content.rows.length);
+				for(var i=0;i<4;i++){
+							
+					newtr.insertCell(i);
+					newtr.cells[i].innerHTML=arr[i];
+					newtr.cells[i].setAttribute("class","mytd"+i);
+							
+				}
+						
+				//yc.insertAfter("content","thead");
+				var tdnames=document.getElementsByClassName("mytd3");
+				//给每个删除绑定一个事件
+				for(var e=0;e<tdnames.length;e++){
+					tdnames[e].onclick=function(){
+							
+					var result=confirm("你确定要删除这个数据吗");
+					if(result){
+						//兼容ie    因为ie中没有remove这个方法
+						if(window.ActiveXObject){
+						    var tr=this.parentNode;
+								tr.remove(tr);
+						    				
+						}else{
+							var tr=this.parentNode;
+							tr.remove();
+						    				
+						}
+					}
+				}
+			}
+
+			
+			ab.transaction(function(transaction){
+//				transaction.executeSql("insert into table student(sid,sname,age) values(0,"+"\'"+yname+"\'"+","+yage+")",[]);
+				//？为占位符   []中存入占位符的值
+				transaction.executeSql("insert into table student(sid,sname,age) values(?,?,?)",[sort,sname,age]);
+			});
+
+		})
+
+			
+		</script>
+	</body>
+</html>

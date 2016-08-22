@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="yctable.js"></script>
+	</head>
+	<body>
+		<h1>添加学生</h1>
+		<hr/>
+		<p>学号：<input type="text" name="sort" id="sort"/></p>
+		<p>学生名：<input type="text" name="sname" id="sname"/></p>
+		<p>年龄：<input type="text" name="age" id="age"/></p>
+		<input type="button" id="btn" value="添加" />
+		<hr />
+		<table border="1" width="500px">
+			<thead id="thead">
+				<tr>
+					<td>学生号</td>
+					<td>学生名</td>
+					<td>年龄</td>
+					<td>操作(删除)</td>
+				</tr>
+			</thead>
+			<tbody id="content"></tbody>
+		</table>
+		<script>
+			var ab;
+			if(window.openDatabase){
+				//创建数据库  test
+				ab=openDatabase("testing",1.0,"testingab",1000);
+				//创建表
+				ab.transaction(function(transaction){
+					transaction.executeSql("CREATE TABLE IF NOT EXISTS student(sid int auto_increment primary key,sname text,age int)",[]);
+				});
+				//删除表
+				//transaction.executeSql("drop table student");
+			}	
+			yc.addEvent("btn","click",function(){
+				//判断数据库是否存在
+				if(!ab){return false;}
+				//从界面取出要存的值
+				var sname=yc.$("sname").value;
+				var age=yc.$("age").value;
+				var sort=yc.$("sort").value;
+				//存到数据库，插入数据
+				ab.transaction(function(transaction){
+//					transaction.executeSql("insert into table student(sid,sname,age) values(0,"+"\'"+yname+"\'"+","+yage+")",[]);
+				//？为占位符   []中存入占位符的值
+					transaction.executeSql("insert into table student(sid,sname,age) values(?,?,?)",[sort,sname,age]);
+				});
+				
+				//清空content中原有的所有数据库
+				var content=yc.$("content");
+				content.innerHTML="";
+				
+				//重新从数据库查询新的结果
+				ab.transaction(function(transaction){
+					transaction.executeSql( "select * from student",[],function(transaction,results){
+						for( var e=0;e<results.rows.length;e++){
+							var row=results.rows.item(e);//item(i)取出第i行的值
+							var trs=content.getElementsByTagName("tr");
+							var length=trs.length;
+							
+							var newRow=content.insertRow(content.rows.length);
+							var cell=newRow.insertCell(0);
+							cell.innerHTML=row['sort'];		
+							var cell1=newRow.insertCell(1);
+							cell1.innerHTML=row['sname'];
+							var cell2=newRow.insertCell(2);
+							cell2.innerHTML=row['age'];
+							var cell3=newRow.insertCell(3);
+							cell3.innerHTML=row['删除'];
+							cell3.setAttribute("class","mytd3")
+							var tdnames=document.getElementsByClassName("mytd3");
+							//给每个删除绑定一个事件
+							for(var e=0;e<tdnames.length;e++){
+								tdnames[e].onclick=function(){
+										
+									var result=confirm("你确定要删除这个数据吗");
+									if(result){
+										//兼容ie    因为ie中没有remove这个方法
+										if(window.ActiveXObject){
+										    var tr=this.parentNode;
+												tr.remove(tr);
+										    				
+										}else{
+											var tr=this.parentNode;
+											tr.remove();
+										    				
+										}
+									}
+								}
+							}
+						}
+					});
+				});
+
+			})
+
+			
+		</script>
+	</body>
+</html>
