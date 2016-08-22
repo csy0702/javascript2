@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+		//ie7  ,ff,等其他浏览器都支持原生的XHR对象，可以像下面代码一样创建
+		//var xhr=new XMLHttpRequest();
+		//如果还想支持ie早起版本，则按下面函数来创建
+			function createXHR(){
+				if( typeof XMLHttpRequest !="undefined"){
+					return new XMLHttpRequest();
+				}else if( typeof ActiveXObject !="undefined"){  //ie早起版本   可以不写，现在的ie11已经不支持了
+					if( typeof arguments.callee.activeXString !='string'){
+						var versions=["MSXML2.XMLHTTP.6.0","MSXML2.XMLHTTP.3.0","Microsoft.XMLHTTP"];//版本从高到低
+						for(var i=0,len=version.length;i<len;i++){
+							try{
+								var xhr=new ActiveXObject( version[i]);
+								arguments.callee.activeXString=varsion[i];
+								return xhr;
+							}catch(ex){
+								//skip;
+							}
+						}
+					}
+					return new ActiveXObject(arguments.callee.activeXString);
+				}else{
+					throw new Error('No XHR object available.');
+				}
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="yctable.js"></script>
+	</head>
+	<body>
+		<form name="myform">
+			<input type="hidden" name="op" value="add" />
+			博客：<textarea name="content" cols="40" rows="20"></textarea>
+			<input type="button" id="btn" value="添加" />
+		</form>
+		<input type="button" id="showcontent" value="查看内容" />
+		<script>
+			function createXHR(){
+				if( typeof XMLHttpRequest !="undefined"){
+					return new XMLHttpRequest();
+				}else if( typeof ActiveXObject !="undefined"){  //ie早起版本   可以不写，现在的ie11已经不支持了
+					if( typeof arguments.callee.activeXString !='string'){
+						var versions=["MSXML2.XMLHTTP.6.0","MSXML2.XMLHTTP.3.0","Microsoft.XMLHTTP"];//版本从高到低
+						for(var i=0,len=version.length;i<len;i++){
+							try{
+								var xhr=new ActiveXObject( version[i]);
+								arguments.callee.activeXString=varsion[i];
+								return xhr;
+							}catch(ex){
+								//skip;
+							}
+						}
+					}
+					return new ActiveXObject(arguments.callee.activeXString);
+				}else{
+					throw new Error('No XHR object available.');
+				}
+			}
+			
+			
+			var request;
+			
+			
+			function listener(){
+				if(request.readyState==4 && request.status==200){//服务器正常响应request.readyState==4
+					document.getElementById("result").innerHTML=request.responseText;
+				}
+
+			}
+			yc.addEvent("btn","click",function(){
+					request=createXHR();
+					if(request){
+						if(request){
+							var params=yc.serialize(document.myform);
+							request.onreadystatechange=listener;
+							request.open("POST","http://192.168.15.222:8080/testxml/boke.action",true);
+							//发表单元素下面的代码必须写
+							request.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+							request.send(params);//这里要进行编码，因为如果要是中文的话会乱码
+						}
+					}
+			})
+			
+			yc.addEvent("showcontent","click",function(){
+					request=createXHR();
+					if(request){
+						if(request){
+							
+							request.onreadystatechange=listener;
+							request.open("POST","http://192.168.15.222:8080/testxml/boke.action",true);
+							//发表单元素下面的代码必须写
+							request.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+							request.send("op=findAll");//这里要进行编码，因为如果要是中文的话会乱码
+						}
+					}
+			})
+			
+			function listener2(){
+				if(request.readyState==4 && request.status==200){//服务器正常响应request.readyState==4
+					alert(request.responseText);
+					yc.$("result").innerHTML=request.responseText;
+					eval(request.responseText);
+				}
+
+			}
+			
+			
+			var jsonstr='{"name":"a","age":20}';
+			//将json字符串转换位json对象
+			var jsonobj=yc.parseJson(jsonstr);
+			alert( jsonobj.name+jsonobj.age);
+		</script>
+	</body>
+</html>
